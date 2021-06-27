@@ -13,7 +13,7 @@ function GraphDrawer(props) {
 
     const options = {
         layout: {
-            hierarchical: false
+            hierarchical: true
         },
         edges: {
             color: "#000000"
