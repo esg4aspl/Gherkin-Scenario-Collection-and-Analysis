@@ -14,23 +14,34 @@ export function convertTaggedScenariosToEsgSegments(taggedScenarios) {
 export function mergeTags(taggedEsgSegments) {
     const existingTags = {};
     taggedEsgSegments.forEach(taggedEsgSegment => {
-        mergeTagsHelper(taggedEsgSegment, existingTags);
+        mergeTagsHelper(taggedEsgSegment, existingTags, null);
     });
-    debugger;
+    // removed orphaned tags
+    return taggedEsgSegments.filter(esgSegment => !(esgSegment.isTag && esgSegment.next.length === 0));
 }
 
-function mergeTagsHelper(taggedEsgSegment, existingTags) {
+function mergeTagsHelper(taggedEsgSegment, existingTags, previousNode) {
+    // save next nodes to use for depth traversal, they may get modified
+    const nextNodes = taggedEsgSegment.next;
     if (taggedEsgSegment.isTag) {
-        const matchingTag = existingTags[taggedEsgSegment.label]
+        const matchingTag = existingTags[taggedEsgSegment.label];
+        debugger;
         if (matchingTag) {
+            debugger;
             // tag has a match
+            // move current tags postfix to matched tag
             matchingTag.next = matchingTag.next.concat(taggedEsgSegment.next);
             taggedEsgSegment.next = [];
+            // if exists, point current tag's parent to matched tag instead
+            if(previousNode){
+                debugger;
+                previousNode.next = previousNode.next.filter(node => node.id !== taggedEsgSegment.id).concat(matchingTag);
+            }
         } else {
             existingTags[taggedEsgSegment.label] = taggedEsgSegment;
         }
     }
-    if (taggedEsgSegment.next) {
-        taggedEsgSegment.next?.forEach(nextSegment => mergeTagsHelper(nextSegment, existingTags));
+    if (nextNodes) {
+        nextNodes?.forEach(nextSegment => mergeTagsHelper(nextSegment, existingTags, taggedEsgSegment));
     }
 }
