@@ -1,19 +1,21 @@
 import Graph from "react-graph-vis";
 import React from "react";
-import convertTaggedScenariosToEsgSegments from "./ScenarioMerger";
+import {mergeTags, convertTaggedScenariosToEsgSegments} from "./ScenarioMerger";
+import {Empty} from "antd";
 
 function GraphDrawer(props) {
 
     if (!props.data || props.data.length === 0) {
-        return <></>;
+        return <Empty/>;
     }
     const esgSegments = convertTaggedScenariosToEsgSegments(props.data);
+    mergeTags(esgSegments);
     const graph = {nodes: [], edges: []};
     esgSegments.forEach(esgSegment => travelEsgSegment(esgSegment, graph));
 
     const options = {
         layout: {
-            hierarchical: true
+            hierarchical: false
         },
         edges: {
             color: "#000000"

@@ -8,7 +8,6 @@ function ScenarioInput(props) {
     const [dataState, setDataStateProtected] = useState([]);
     const setDataState = (dataState) => {
         setDataStateProtected(dataState);
-        debugger;
         if (autoDrawEnabled) {
             props.handleDrawClick(dataState);
         }
@@ -61,7 +60,7 @@ function ScenarioInput(props) {
                     </>
                 )
             })}
-            <Row justify={'space-between'} style={{width: '1000px'}} gutter={[8, 8]}>
+            <Row justify={'space-between'} style={{width: '1000px'}} gutter={[0, 8]}>
                 <Col span={24}>
                     <Button block onClick={() => {
                         dataStateCopy.push({});
