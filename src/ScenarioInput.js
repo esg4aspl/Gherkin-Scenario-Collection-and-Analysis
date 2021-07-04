@@ -1,9 +1,10 @@
 import {useState} from "react";
-import {Button, Checkbox, Col, Drawer, Input, Row, Steps} from 'antd';
+import {Button, Checkbox, Col, Drawer, Input, Row, Steps, Table} from 'antd';
 import 'antd/dist/antd.css'
-import {ColorPicker, useColor} from "react-color-palette";
+import {useColor} from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
-import {EditOutlined} from '@ant-design/icons';
+import {MinusCircleOutlined, PlusCircleOutlined} from '@ant-design/icons';
+import {getInputColumns} from "./ScenarioInputHelper";
 
 const _ = require('lodash');
 
@@ -34,62 +35,110 @@ function ScenarioInput(props) {
     const [editingScenarioId, setEditingScenarioId] = useState();
     const types = ['given', 'when', 'then'];
 
+    const handleScenarioEdit = (event, step) => {
+        step.name = event.target.value;
+        setDataState(dataStateCopy);
+    }
+
+    const handleScenarioStepDelete = (steps, stepToDelete) => {
+        const deleteIndex = steps.findIndex(aStep => aStep === stepToDelete);
+        steps.splice(deleteIndex, 1);
+        setDataState(dataStateCopy);
+    };
+
+    const handleScenarioStepAdd = (steps, type) => {
+        debugger
+        // find last index matching
+        let insertAfterIndex = -1;
+        steps.forEach((aStep, index) => (aStep.type === type) && (insertAfterIndex = index));
+        steps.splice(insertAfterIndex + 1, 0, {name: '', type});
+        setDataState(dataStateCopy);
+    };
+
+    const drawTypeGroup = (steps, currentType) => {
+        return (
+            <div>
+                {steps.filter((step) => step.type === currentType)
+                    .map((step, id, orgArray) => {
+                        return (
+                            <div>
+                                <Row>
+                                    <Col span={20}>
+                                        <Input
+                                            addonBefore={id === 0 ? step.type : 'and'}
+                                            value={step.name}
+                                            onChange={(event => {
+                                                handleScenarioEdit(event, step)
+                                            })}/>
+                                    </Col>
+                                    <Col span={4}>
+                                        {orgArray.length > 1 && <MinusCircleOutlined onClick={() =>
+                                            handleScenarioStepDelete(steps, step)
+                                        }/>}
+                                    </Col>
+                                </Row>
+                            </div>
+                        );
+                    })}
+                <Button onClick={() => handleScenarioStepAdd(steps, currentType)}><PlusCircleOutlined/>{currentType}
+                </Button>
+            </div>
+        );
+    };
+
+    const handleFieldUpdate = (index, fieldName, value) => {
+        if (fieldName === 'isStartNode' || fieldName === 'isEndNode') {
+            handleStartOrEndTagUpdate(index, fieldName === 'isStartNode', value);
+        }
+        dataStateCopy[index][fieldName] = value;
+        setDataState(dataStateCopy)
+    }
+
+    const handleStartOrEndTagUpdate = (index, isStart, value) => {
+        // convert tag to '[' or ']' if value is set
+        // o.w. convert tag to placeholder
+        if (value) {
+            if (isStart) {
+                dataStateCopy[index].startTag = '[';
+            } else {
+                dataStateCopy[index].endTag = ']';
+            }
+        } else {
+            if (isStart) {
+                dataStateCopy[index].startTag = `#startTag-${dataStateCopy[index].id}`;
+            } else {
+                dataStateCopy[index].endTag = `#endTag-${dataStateCopy[index].id}`;
+            }
+        }
+    }
+
+    const handleScenarioClick = (index) => {
+        setEditingScenarioId(index);
+        setDrawerVisible(true);
+    }
+
+    const handleRowDelete = (index) => {
+        dataStateCopy.splice(index, 1);
+        setDataState(dataStateCopy);
+    }
+
     return (
         <div style={{border: '1px solid', marginLeft: '40px', marginRight: '40px', marginTop: '40px'}}>
-            <Row justify={'space-between'}>
-                <Col span={1}>id</Col>
-                <Col span={6}>startTag</Col>
-                <Col span={6}>Scenario</Col>
-                <Col span={6}>endTag</Col>
-                <Col span={1}/>
-            </Row>
-            {dataStateCopy.map((row, id) => {
-                return (
-                    <>
-                        <Row justify={'space-between'} key={id}
-                             className='mb-2'>
-                            <Col span={1}>{id}</Col>
-                            <Col span={6}>
-                                <Input onChange={event => {
-                                    dataStateCopy[id].startTag = event.target.value;
-                                    setDataState(dataStateCopy)
-                                }} value={row.startTag}/>
-                            </Col>
-                            <Col span={6}>
-                                <Button block onClick={() => {
-                                    setEditingScenarioId(id);
-                                    setDrawerVisible(true)
-                                }}><EditOutlined/> {row.scenario.name}</Button>
-                            </Col>
-                            <Col span={6}>
-                                <Input onChange={event => {
-                                    dataStateCopy[id].endTag = event.target.value;
-                                    setDataState(dataStateCopy)
-                                }} value={row.endTag}/>
-                            </Col>
-                            <Col span={1}>
-                                <Button onClick={() => {
-                                    dataStateCopy.splice(id, 1);
-                                    setDataState(dataStateCopy);
-                                }}>-</Button>
-                            </Col>
-                        </Row>
-                    </>
-                )
-            })}
+            <Table columns={getInputColumns(handleFieldUpdate, handleScenarioClick, handleRowDelete)}
+                   dataSource={dataStateCopy}/>
 
             <Row justify={'space-between'} gutter={[0, 8]}>
                 <Col span={24}>
                     <Button block onClick={() => {
                         dataStateCopy.push({
+                            id: uniqueRowCounter,
                             startTag: `#startTag-${uniqueRowCounter}`,
                             scenario: {
                                 name: `#scenario-${uniqueRowCounter}`,
                                 steps: [
-                                    {name: 'temp1', type: 'given'},
-                                    {name: 'temp2', type: 'when'},
-                                    {name: 'temp3', type: 'when'},
-                                    {name: 'temp4', type: 'then'},
+                                    {name: 'a given', type: 'given'},
+                                    {name: 'a when', type: 'when'},
+                                    {name: 'a then', type: 'then'},
                                 ]
                             },
                             endTag: `#endTag-${uniqueRowCounter}`
@@ -131,24 +180,20 @@ function ScenarioInput(props) {
                     }}>Draw</Button>
                 </Col>
             </Row>
-            <Row>
-                <ColorPicker width={456} height={228} color={color} onChange={setColor} hideHSV/>
-            </Row>
+            {/*<Row>*/}
+            {/*    <ColorPicker width={456} height={228} color={color} onChange={setColor} hideHSV/>*/}
+            {/*</Row>*/}
             <Drawer visible={drawerVisible} width={720} onClose={() => {
                 setDrawerVisible(false)
             }}>
-                <div>
-                {
-                    types.map((currentType) => {
-                        return(
-                        dataState[editingScenarioId]?.scenario.steps.filter((step) => step.type === currentType)
-                            .map((step, id) => {
-                                return (<Input addonBefore={id === 0 ? step.type : 'and'} value={step.name}/>);
-                            })
-                        )
-                    })
+                {drawerVisible && (<div>
+                    {
+                        types.map((currentType) => {
+                            return (drawTypeGroup(dataStateCopy[editingScenarioId].scenario.steps, currentType));
+                        })
+                    }
+                </div>)
                 }
-                </div>
             </Drawer>
         </div>
     )

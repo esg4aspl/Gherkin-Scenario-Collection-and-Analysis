@@ -10,12 +10,10 @@
     "antd": "^4.16.5",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
-    "react-bootstrap": "^1.6.1",
     "react-color-palette": "^6.0.0",
     "react-dom": "^17.0.2",
     "react-graph-vis": "^1.0.7",
     "react-scripts": "4.0.3",
-    "reactstrap": "^8.9.0",
     "vis-data": "^7.1.2",
     "vis-network": "^9.0.4",
     "web-vitals": "^1.1.2"
