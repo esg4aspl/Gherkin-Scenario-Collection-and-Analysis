@@ -124,16 +124,24 @@ function ScenarioInput(props) {
     }
 
     const produceDownloadData = () => {
-        return dataStateCopy;
+        return JSON.stringify(dataStateCopy, null, 4);
     }
 
-    const renderDownloadButton = (onClick) =>{
+    const renderDownloadButton = (onClick) => {
         return <Button onClick={onClick}>Export</Button>;
+    }
+
+    const onFileImport = (fileContent) => {
+        console.log(fileContent);
+        const parsed = JSON.parse(fileContent);
+        setDataState(parsed);
     }
 
     return (
         <div style={{border: '1px solid', marginLeft: '40px', marginRight: '40px', marginTop: '40px'}}>
-            <FileIO dataFetcher={produceDownloadData} renderDlButton={renderDownloadButton} getFileName={()=>{return 'EsgExport.json'}}/>
+            <FileIO dataFetcher={produceDownloadData} renderDlButton={renderDownloadButton} getFileName={() => {
+                return 'EsgExport.json'
+            }} renderUlButton={1} onFileUpload={onFileImport}/>
             <Table columns={getInputColumns(handleFieldUpdate, handleScenarioClick, handleRowDelete)}
                    dataSource={dataStateCopy}/>
 

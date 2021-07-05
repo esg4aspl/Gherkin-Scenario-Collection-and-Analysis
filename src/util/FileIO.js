@@ -15,10 +15,7 @@ export class FileIO extends React.Component {
 
     download(event) {
         event.preventDefault();
-        // Prepare the file
-
-        const output = JSON.stringify(this.props.dataFetcher(),
-            null, 4);
+        const output = this.props.dataFetcher();
         // Download it
         const blob = new Blob([output]);
         const fileDownloadUrl = URL.createObjectURL(blob);
@@ -49,6 +46,7 @@ export class FileIO extends React.Component {
             const fileContents = e.target.result;
             status.push(`File name: "${fileObj.name}". Length: ${fileContents.length} bytes.`);
             // Show first 80 characters of the file
+            this.props.onFileUpload(fileContents);
             const first80char = fileContents.substring(0, 80);
             status.push(`First 80 characters of the file:\n${first80char}`)
             this.setState({status: status.join("\n")})
