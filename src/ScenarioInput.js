@@ -5,6 +5,7 @@ import {useColor} from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import {MinusCircleOutlined, PlusCircleOutlined} from '@ant-design/icons';
 import {getInputColumns} from "./ScenarioInputHelper";
+import {FileIO} from "./util/FileIO";
 
 const _ = require('lodash');
 
@@ -122,8 +123,17 @@ function ScenarioInput(props) {
         setDataState(dataStateCopy);
     }
 
+    const produceDownloadData = () => {
+        return dataStateCopy;
+    }
+
+    const renderDownloadButton = (onClick) =>{
+        return <Button onClick={onClick}>Export</Button>;
+    }
+
     return (
         <div style={{border: '1px solid', marginLeft: '40px', marginRight: '40px', marginTop: '40px'}}>
+            <FileIO dataFetcher={produceDownloadData} renderDlButton={renderDownloadButton} getFileName={()=>{return 'EsgExport.json'}}/>
             <Table columns={getInputColumns(handleFieldUpdate, handleScenarioClick, handleRowDelete)}
                    dataSource={dataStateCopy}/>
 
@@ -195,6 +205,12 @@ function ScenarioInput(props) {
                 </div>)
                 }
             </Drawer>
+            {/*a hidden anchor to trigger download from*/}
+            {/*<a className="hidden"*/}
+            {/*   download={this.fileNames[this.state.fileType]}*/}
+            {/*   href={this.state.fileDownloadUrl}*/}
+            {/*   ref={e=>this.dofileDownload = e}*/}
+            {/*>download it</a>*/}
         </div>
     )
 }
