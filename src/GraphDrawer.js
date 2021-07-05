@@ -2,6 +2,8 @@ import Graph from "react-graph-vis";
 import React from "react";
 import {convertTaggedScenariosToEsgSegments, expandScenarios, mergeTags} from "./ScenarioMerger";
 import {Empty} from "antd";
+import {ForceGraph2D, ForceGraph3D} from 'react-force-graph';
+import CytoscapeWrapper from "./visualizers/cytoscape/CytoscapeWrapper";
 
 function GraphDrawer(props) {
 
@@ -36,7 +38,7 @@ function GraphDrawer(props) {
     if (props.options.convertLevel > 1) {
         esgSegments = expandScenarios(esgSegments);
     }
-    const graph = {nodes: [], edges: []};
+    const graph = {nodes: [], edges: [], links:[]};
     esgSegments.forEach(esgSegment => travelEsgSegment(esgSegment, graph, {}));
 
     const options = {
@@ -48,24 +50,13 @@ function GraphDrawer(props) {
         }
     };
 
-
-
     return (
-        <Graph graph={graph} options={options} style={{height: "640px"}}/>
+        <div>
+            <CytoscapeWrapper graph={graph}/>
+            <Graph graph={graph} options={options} style={{height: "640px"}}/>
+        </div>
     )
 }
 
-// function travelEsgSegment(esgSegment, graph, visitedNodes) {
-//     if (visitedNodes[esgSegment.id]) {
-//         handle possible cyclic paths
-        // return;
-    // }
-    // graph.nodes.push({label: esgSegment.label, id: esgSegment.id});
-    // visitedNodes[esgSegment.id] = true;
-    // if (esgSegment.next) {
-    //     esgSegment.next.forEach(destNode => graph.edges.push({from: esgSegment.id, to: destNode.id, color: nodeCo}));
-    //     esgSegment.next.forEach(destNode => travelEsgSegment(destNode, graph, visitedNodes));
-    // }
-// }
 
 export default GraphDrawer;
