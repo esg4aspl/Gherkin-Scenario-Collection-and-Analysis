@@ -61,6 +61,7 @@ function CytoscapeWrapper(props){
 
     useEffect(()=>{
         console.log('a');
+        //TODO: mem leak here!
         debugger;
         if(cy){
             // cy.destroy();
@@ -70,7 +71,8 @@ function CytoscapeWrapper(props){
         setCy( cytoscape(conf));
     },[props.graph]);
 
-    return <div style={cyStyle} ref={(cyRef) => {
+    return <div style={props.style} ref={(cyRef) => {
+        // return <div style={cyStyle} ref={(cyRef) => {
         setCyRef(cyRef);
     }}/>
 }

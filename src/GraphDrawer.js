@@ -1,9 +1,10 @@
 import Graph from "react-graph-vis";
 import React from "react";
 import {convertTaggedScenariosToEsgSegments, expandScenarios, mergeTags} from "./ScenarioMerger";
-import {Empty} from "antd";
-import {ForceGraph2D, ForceGraph3D} from 'react-force-graph';
+import {Empty, Tabs} from "antd";
 import CytoscapeWrapper from "./visualizers/cytoscape/CytoscapeWrapper";
+
+const {TabPane} = Tabs;
 
 function GraphDrawer(props) {
 
@@ -38,7 +39,7 @@ function GraphDrawer(props) {
     if (props.options.convertLevel > 1) {
         esgSegments = expandScenarios(esgSegments);
     }
-    const graph = {nodes: [], edges: [], links:[]};
+    const graph = {nodes: [], edges: [], links: []};
     esgSegments.forEach(esgSegment => travelEsgSegment(esgSegment, graph, {}));
 
     const options = {
@@ -52,8 +53,12 @@ function GraphDrawer(props) {
 
     return (
         <div>
-            <CytoscapeWrapper graph={graph}/>
-            <Graph graph={graph} options={options} style={{height: "640px"}}/>
+            <Tabs>
+                <TabPane tab={'Cytoscape'} key={1}><CytoscapeWrapper graph={graph} style={{height: "640px"}}/></TabPane>
+                <TabPane tab={'vis.js'} key={2}><Graph graph={graph} options={options}
+                                                       style={{height: "640px"}}/></TabPane>
+            </Tabs>
+
         </div>
     )
 }

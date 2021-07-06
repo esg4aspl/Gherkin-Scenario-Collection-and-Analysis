@@ -123,7 +123,7 @@ function ScenarioInput(props) {
     }
 
     return (
-        <div style={{border: '1px solid', marginLeft: '40px', marginRight: '40px', marginTop: '40px'}}>
+        <div>
             <Table columns={getInputColumns(handleFieldUpdate, handleScenarioClick, handleRowDelete)}
                    dataSource={dataStateCopy}/>
 
