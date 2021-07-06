@@ -12,9 +12,13 @@ const App = () => {
         setOptions(options);
     }
     return (
-        <div>
-            <ScenarioInput handleDrawClick={handleDrawClick}/>
-            <GraphDrawer data={data} options={options}/>
+        <div style={{padding: '40px'}}>
+            <div style={{border: '1px solid', margin: '40px'}}>
+                <ScenarioInput handleDrawClick={handleDrawClick}/>
+            </div>
+            <div style={{border: '1px solid', margin: '40px'}}>
+                <GraphDrawer data={data} options={options}/>
+            </div>
         </div>
     );
 

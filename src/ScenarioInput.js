@@ -138,7 +138,7 @@ function ScenarioInput(props) {
     }
 
     return (
-        <div style={{border: '1px solid', marginLeft: '40px', marginRight: '40px', marginTop: '40px'}}>
+        <div>
             <FileIO dataFetcher={produceDownloadData} renderDlButton={renderDownloadButton} getFileName={() => {
                 return 'EsgExport.json'
             }} renderUlButton={1} onFileUpload={onFileImport}/>
@@ -213,12 +213,6 @@ function ScenarioInput(props) {
                 </div>)
                 }
             </Drawer>
-            {/*a hidden anchor to trigger download from*/}
-            {/*<a className="hidden"*/}
-            {/*   download={this.fileNames[this.state.fileType]}*/}
-            {/*   href={this.state.fileDownloadUrl}*/}
-            {/*   ref={e=>this.dofileDownload = e}*/}
-            {/*>download it</a>*/}
         </div>
     )
 }
