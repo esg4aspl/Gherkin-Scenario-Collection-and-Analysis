@@ -1,8 +1,10 @@
 import Graph from "react-graph-vis";
 import React from "react";
 import {convertTaggedScenariosToEsgSegments, expandScenarios, mergeTags} from "./ScenarioMerger";
-import {Empty, Tabs} from "antd";
+import {Button, Empty, Tabs} from "antd";
 import CytoscapeWrapper from "./visualizers/cytoscape/CytoscapeWrapper";
+import {FileIO} from "./util/FileIO";
+import {convertToEsgEngineFormat} from "./util/EsgEngineConverter";
 
 const {TabPane} = Tabs;
 
@@ -51,14 +53,18 @@ function GraphDrawer(props) {
         }
     };
 
+    const renderDownloadButton = (onClick) => {
+        return <Button onClick={onClick}>Export To ESG-Engine</Button>;
+    }
+
     return (
         <div>
+            <FileIO dataFetcher={() => JSON.stringify(convertToEsgEngineFormat(graph), null, 4)} renderDlButton={renderDownloadButton} getFileName={() => { return 'EsgExport.json' }} />
             <Tabs>
                 <TabPane tab={'Cytoscape'} key={1}><CytoscapeWrapper graph={graph} style={{height: "640px"}}/></TabPane>
                 <TabPane tab={'vis.js'} key={2}><Graph graph={graph} options={options}
                                                        style={{height: "640px"}}/></TabPane>
             </Tabs>
-
         </div>
     )
 }
