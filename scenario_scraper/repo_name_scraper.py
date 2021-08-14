@@ -38,7 +38,7 @@ class RepoNameSearchSpider(scrapy.Spider):
             # if they are truly parallel, below critical section requires an execution barrier
             if repo_name not in self.uniqueNames:
                 result = {
-                    'repoName': repo_name[0],
+                    'name': repo_name[0],
                 }
                 yield result
                 self.output_file.write(json.dumps(result) + '\n')

@@ -9,7 +9,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Scraper
 
-Run `./scenario_scraper.py -h` and follow prompted instructions.
+Run `scenario_scraper/scraper.py -h` and follow prompted instructions.
 
 List of discovered Github repositories with Gherkin Scenarios are
 listed below.
