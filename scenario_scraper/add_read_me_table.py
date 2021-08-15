@@ -1,5 +1,6 @@
 import json
 import argparse
+from datetime import datetime, timezone
 
 
 def add_table_to_file(input_file, output_file):
@@ -9,23 +10,34 @@ def add_table_to_file(input_file, output_file):
     out_file = open(output_file, 'r+')
 
     table = ''
+    table += 'Last updated at:' + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z") + '\n'
     table += (
-        '<table>\n<tr><th>Repo</th><th>Used By</th><th>Contributors</th><th>License</th><th>Features</th>'
-        '<th>Langs</th><th>Gherkin Lang</th></tr>\n')
+        '<table>\n<tr>'
+        '<th>Repo</th>'
+        '<th>Features</th>'
+        '<th>Langs</th>'
+        '<th>Gherkin Lang</th>'
+        '<th>Used By</th>'
+        '<th>Contributors</th>'
+        '<th>License</th>'
+        '</tr>\n')
     for line in in_file.readlines():
         jl = (json.loads(line))
+        # if repo is not reachable, do not insert to table
+        if 'is_reachable' in jl and jl['is_reachable'] is False:
+            continue
 
         table += ('<tr>\n')
         table += ('<td>' + '<a href=' + jl['url'] + '>' + jl['name'] + '</a>' + '</td>')
-        table += ('<td>' + (jl['Used by'] if 'Used by' in jl else '-') + '</td>')
-        table += ('<td>' + (jl['Contributors'] if 'Contributors' in jl else '-') + '</td>')
-        table += ('<td>' + ('<a href=https://github.com' + jl['licenseLink'] + '>' + jl['license'] + '</a>' if 'licenseLink' in jl else '-') + '</td>')
         table += ('<td>' + ('<a href=' + jl['url'] + '/search?l=Gherkin>' + jl['featureCount'] + '</a>' if 'featureCount' in jl else '-') + '</td>')
         table += ('<td>')
         for lang in jl['languages']:
             table += (lang + ':' + jl['languages'][lang] + '\n')
         table += ('</td>')
         table += ('<td>' + jl['gherkinLang'] + '</td>')
+        table += ('<td>' + (jl['Used by'] if 'Used by' in jl else '-') + '</td>')
+        table += ('<td>' + (jl['Contributors'] if 'Contributors' in jl else '-') + '</td>')
+        table += ('<td>' + ('<a href=https://github.com' + jl['licenseLink'] + '>' + jl['license'] + '</a>' if 'licenseLink' in jl else '-') + '</td>')
         table += ('\n</tr>\n')
 
     table += ('</table>\n')

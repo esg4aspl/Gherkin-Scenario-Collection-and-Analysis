@@ -14,6 +14,7 @@ class MetadataSpider(scrapy.Spider):
     uniqueNames = {}
     max_pages = 300
     page = 0
+    handle_httpstatus_list = [404]
 
     def __init__(self, in_urls=None, **kwargs):
         super().__init__(**kwargs)
@@ -22,8 +23,7 @@ class MetadataSpider(scrapy.Spider):
         self.urls = in_urls
 
     def start_requests(self):
-
-        for url in urls:
+        for url in self.urls:
             yield scrapy.Request(url=url)
 
     def parseSingleRawFeature(self, response):
@@ -46,6 +46,12 @@ class MetadataSpider(scrapy.Spider):
     def parse(self, response):
 
         results = {'name': response.url.split('/', 3)[-1], 'url': response.url}
+        # if repo is not reachable, mark it as such and return
+        if response.status == 404:
+            results['is_reachable'] = False
+            yield results
+            return
+
         for counterSelector in response.css('a.Link--primary.no-underline'):
             counter_name = counterSelector.xpath('text()').get().strip(),
             counter_name = counter_name[0]
@@ -80,13 +86,14 @@ class MetadataSpider(scrapy.Spider):
         yield search_page_req
 
 
+def crawler_results(signal, sender, item, response, spider):
+    results.append(item)
+
+
 if __name__ == "__main__":
     process = CrawlerProcess()
     urls = []
     results = []
-
-    def crawler_results(signal, sender, item, response, spider):
-        results.append(item)
 
     dispatcher.connect(crawler_results, signal=signals.item_passed)
 
