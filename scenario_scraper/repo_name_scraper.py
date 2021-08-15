@@ -14,6 +14,10 @@ class RepoNameSearchSpider(scrapy.Spider):
     def __init__(self, output_file=None, **kwargs):
         super().__init__(**kwargs)
         self.output_file = output_file
+        self.output_file.seek(0)
+        for line in self.output_file.readlines():
+            jl = json.loads(line)
+            self.uniqueNames[jl['name']] = True
 
     def start_requests(self):
         urls = [
@@ -33,12 +37,13 @@ class RepoNameSearchSpider(scrapy.Spider):
 
         for repoSelector in response.css('a.Link--secondary'):
             repo_name = repoSelector.xpath('text()').get().strip(),
+            repo_name = repo_name[0]
 
             # TODO: these operations are not re-entrant. Not sure how crawler processes multiple start_urls
             # if they are truly parallel, below critical section requires an execution barrier
             if repo_name not in self.uniqueNames:
                 result = {
-                    'name': repo_name[0],
+                    'name': repo_name,
                 }
                 yield result
                 self.output_file.write(json.dumps(result) + '\n')

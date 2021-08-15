@@ -13,7 +13,7 @@ if __name__ == "__main__":
     process = CrawlerProcess()
 
     if args.discover:
-        f = open(args.data_file, 'a')
+        f = open(args.data_file, 'a+')
         process.crawl(RepoNameSearchSpider, output_file=f)
         process.start()
 
