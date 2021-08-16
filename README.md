@@ -3129,3 +3129,15 @@ Gherkin:32.4%
 </table>
 
 [comment]: <> (AUTO INSERT TABLE END DO NOT REMOVE)
+
+## Setting up credentials for the search page
+GitHub requires an active login session for its advanced search page.
+As the login requires either a code verification or a 2-factor authentication,
+this step is not automated.
+
+To get the session info, visit https://github.com/search?q=extension%3Afeature+path%3A%2Ffeatures&type=Code&ref=advsearch&l=&l=
+and login to GitHub if required. Open browser's network panel and refresh
+the page to see the cookies sent with the request.
+
+Fill the credentials.json with the information stored in the cookies.
+Required fields are: `user_session`, `dotcom_user` and `_gh_sess`
