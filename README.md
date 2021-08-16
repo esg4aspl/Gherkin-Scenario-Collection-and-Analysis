@@ -11,12 +11,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Run `scenario_scraper/scraper.py -h` and follow prompted instructions.
 
-List of discovered Github repositories with Gherkin Scenarios are
+List of discovered GitHub repositories with more than 10 Gherkin Features are
 listed below. Raw data can be found at `metadata_output.jl`
 
 [comment]: <> (AUTO INSERT TABLE BEGIN DO NOT REMOVE)
 
-Last updated at:2021-08-16 08:12:10 UTC
+### Summary
+<table>
+<tr><th>Last updated at</th><td>2021-08-16 12:01:14 UTC</td></tr>
+<tr><th>#of Repositories</th><td>787</td></tr>
+<tr><th>#of Repositories with more than 10 Features</th><td>172</td></tr>
+</table>
+
+
+### Discovered Repositories
 <table>
 <tr><th>Repo</th><th>Features</th><th>Langs</th><th>Gherkin Lang</th><th>Used By</th><th>Contributors</th><th>License</th></tr>
 <tr>

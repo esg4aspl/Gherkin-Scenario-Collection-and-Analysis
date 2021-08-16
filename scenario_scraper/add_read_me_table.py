@@ -10,9 +10,9 @@ def add_table_to_file(input_file, output_file):
     out_file = open(output_file, 'r+')
 
     table = ''
-    table += 'Last updated at:' + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z") + '\n'
+    table += '### Discovered Repositories'
     table += (
-        '<table>\n<tr>'
+        '\n<table>\n<tr>'
         '<th>Repo</th>'
         '<th>Features</th>'
         '<th>Langs</th>'
@@ -21,15 +21,20 @@ def add_table_to_file(input_file, output_file):
         '<th>Contributors</th>'
         '<th>License</th>'
         '</tr>\n')
+    repo_count = 0
+    repo_with_many_feature_count = 0
     for line in in_file.readlines():
         jl = (json.loads(line))
         # if repo is not reachable, do not insert to table
         if 'is_reachable' in jl and jl['is_reachable'] is False:
             continue
 
+        repo_count = repo_count + 1
+
         # do not add small repos to the result table
         if 'featureCount' not in jl or int(jl['featureCount']) < 10:
             continue
+        repo_with_many_feature_count = repo_with_many_feature_count + 1
 
         table += ('<tr>\n')
         table += ('<td>' + '<a href=' + jl['url'] + '>' + jl['name'] + '</a>' + '</td>')
@@ -46,12 +51,20 @@ def add_table_to_file(input_file, output_file):
 
     table += ('</table>\n')
 
+    summary_table = ''
+    summary_table += '### Summary'
+    summary_table += '\n<table>\n'
+    summary_table += '<tr><th>Last updated at</th><td>' + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z") + '</td></tr>\n'
+    summary_table += '<tr><th>#of Repositories</th><td>' + str(repo_count) + '</td></tr>\n'
+    summary_table += '<tr><th>#of Repositories with more than 10 Features</th><td>' + str(repo_with_many_feature_count) + '</td></tr>\n'
+    summary_table += '</table>\n'
     readme = ''
     copy_flag = True
     for line in out_file.readlines():
         if line.find(table_start_marker) >= 0:
             copy_flag = False
             readme += line
+            readme += '\n' + summary_table + '\n'
             readme += '\n' + table + '\n'
         if line.find(table_end_marker) >= 0:
             copy_flag = True
