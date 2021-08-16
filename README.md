@@ -3140,4 +3140,4 @@ and login to GitHub if required. Open browser's network panel and refresh
 the page to see the cookies sent with the request.
 
 Fill the credentials.json with the information stored in the cookies.
-Required fields are: `user_session`, `dotcom_user` and `_gh_sess`
+Required field is named: `user_session`

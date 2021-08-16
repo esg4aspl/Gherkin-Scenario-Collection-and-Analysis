@@ -3,6 +3,7 @@ import time
 import scrapy
 
 from scrapy.crawler import CrawlerProcess
+from scrapy.exceptions import CloseSpider
 
 
 class RepoNameSearchSpider(scrapy.Spider):
@@ -24,16 +25,17 @@ class RepoNameSearchSpider(scrapy.Spider):
             'https://github.com/search?q=extension%3Afeature+path%3A%2Ffeatures&type=Code&ref=advsearch&l=&l=',
             'https://github.com/search?l=&o=desc&q=extension%3Afeature+path%3A%2Ffeatures&s=indexed&type=Code',
         ]
+        credfile = open('credentials.json', 'r')
+        creds = json.load(credfile)
         for url in urls:
             # github's search page requires a login.
             # visit the url above, open dev console->Network and copy the cookie in request headers to use that session
-            yield scrapy.Request(url=url, cookies={'user_session': '!!!!!!FILL ME!!!!!!',
-                                                   'logged_in': 'yes',
-                                                   'dotcom_user': '!!!!!!FILL ME!!!!!!',
-                                                   '_gh_sess': '!!!!!!FILL ME!!!!!!'
-                                                   }, callback=self.parse)
+            yield scrapy.Request(url=url, cookies=creds, callback=self.parse)
 
     def parse(self, response):
+        if response.css('title::text').get().startswith('Sign in to GitHub'):
+            raise CloseSpider('Search page has redirected to user login \n Follow the instructions given in'
+            'https://github.com/esg4aspl/Gherkin-Scenario-Collection-and-Analysis#setting-up-credentials-for-the-search-page')
 
         for repoSelector in response.css('a.Link--secondary'):
             repo_name = repoSelector.xpath('text()').get().strip(),
