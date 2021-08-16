@@ -24,6 +24,7 @@ class RepoNameSearchSpider(scrapy.Spider):
         urls = [
             'https://github.com/search?q=extension%3Afeature+path%3A%2Ffeatures&type=Code&ref=advsearch&l=&l=',
             'https://github.com/search?l=&o=desc&q=extension%3Afeature+path%3A%2Ffeatures&s=indexed&type=Code',
+            'https://github.com/search?l=&o=asc&q=extension%3Afeature+path%3A%2Ffeatures&s=indexed&type=Code'
         ]
         credfile = open('credentials.json', 'r')
         creds = json.load(credfile)

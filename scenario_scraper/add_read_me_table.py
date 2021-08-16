@@ -27,6 +27,10 @@ def add_table_to_file(input_file, output_file):
         if 'is_reachable' in jl and jl['is_reachable'] is False:
             continue
 
+        # do not add small repos to the result table
+        if 'featureCount' not in jl or int(jl['featureCount']) < 10:
+            continue
+
         table += ('<tr>\n')
         table += ('<td>' + '<a href=' + jl['url'] + '>' + jl['name'] + '</a>' + '</td>')
         table += ('<td>' + ('<a href=' + jl['url'] + '/search?l=Gherkin>' + jl['featureCount'] + '</a>' if 'featureCount' in jl else '-') + '</td>')
