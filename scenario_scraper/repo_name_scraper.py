@@ -9,7 +9,7 @@ from scrapy.exceptions import CloseSpider
 class RepoNameSearchSpider(scrapy.Spider):
     name = 'repo_names'
     uniqueNames = {}
-    max_pages = 300  # limit the max crawled page count to avoid infinite loop on a parsing error
+    max_pages = 600  # limit the max crawled page count to avoid infinite loop on a parsing error
     page = 0
 
     def __init__(self, output_file=None, **kwargs):
@@ -22,9 +22,18 @@ class RepoNameSearchSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
+            # feature/*.feature best match
             'https://github.com/search?q=extension%3Afeature+path%3A%2Ffeatures&type=Code&ref=advsearch&l=&l=',
+            # feature/*.feature most recently indexed
             'https://github.com/search?l=&o=desc&q=extension%3Afeature+path%3A%2Ffeatures&s=indexed&type=Code',
-            'https://github.com/search?l=&o=asc&q=extension%3Afeature+path%3A%2Ffeatures&s=indexed&type=Code'
+            # feature/*.feature lesth recently indexed
+            'https://github.com/search?l=&o=asc&q=extension%3Afeature+path%3A%2Ffeatures&s=indexed&type=Code',
+            # *.feature best match
+            'https://github.com/search?q=extension%3Afeature+path%3A%2Ffeatures+extension%3Afeature&type=Code&ref=advsearch&l=&l=',
+            # *.feature most recently indexed
+            'https://github.com/search?l=&o=desc&q=extension%3Afeature+path%3A%2Ffeatures+extension%3Afeature&s=indexed&type=Code',
+            # *.feature least recently indexed
+            'https://github.com/search?l=&o=asc&q=extension%3Afeature+path%3A%2Ffeatures+extension%3Afeature&s=indexed&type=Code'
         ]
         credfile = open('credentials.json', 'r')
         creds = json.load(credfile)

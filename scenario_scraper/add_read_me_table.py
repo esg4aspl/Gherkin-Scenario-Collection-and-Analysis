@@ -9,6 +9,18 @@ def add_table_to_file(input_file, output_file):
     in_file = open(input_file, 'r')
     out_file = open(output_file, 'r+')
 
+    data = []
+    for line in in_file.readlines():
+        data.append(json.loads(line))
+
+    def compare_attr_getter(item):
+        if 'featureCount' not in item:
+            return -float('inf')
+        else:
+            return int(item['featureCount'])
+
+    data.sort(key=lambda x: compare_attr_getter(x), reverse=True)
+
     table = ''
     table += '### Discovered Repositories'
     table += (
@@ -23,30 +35,29 @@ def add_table_to_file(input_file, output_file):
         '</tr>\n')
     repo_count = 0
     repo_with_many_feature_count = 0
-    for line in in_file.readlines():
-        jl = (json.loads(line))
+    for row in data:
         # if repo is not reachable, do not insert to table
-        if 'is_reachable' in jl and jl['is_reachable'] is False:
+        if 'is_reachable' in row and row['is_reachable'] is False:
             continue
 
         repo_count = repo_count + 1
 
         # do not add small repos to the result table
-        if 'featureCount' not in jl or int(jl['featureCount']) < 10:
+        if int(row['featureCount']) < 10:
             continue
         repo_with_many_feature_count = repo_with_many_feature_count + 1
 
         table += ('<tr>\n')
-        table += ('<td>' + '<a href=' + jl['url'] + '>' + jl['name'] + '</a>' + '</td>')
-        table += ('<td>' + ('<a href=' + jl['url'] + '/search?l=Gherkin>' + jl['featureCount'] + '</a>' if 'featureCount' in jl else '-') + '</td>')
+        table += ('<td>' + '<a href=' + row['url'] + '>' + row['name'] + '</a>' + '</td>')
+        table += ('<td>' + ('<a href=' + row['url'] + '/search?l=Gherkin>' + row['featureCount'] + '</a>' if 'featureCount' in row else '-') + '</td>')
         table += ('<td>')
-        for lang in jl['languages']:
-            table += (lang + ':' + jl['languages'][lang] + '\n')
+        for lang in row['languages']:
+            table += (lang + ':' + row['languages'][lang] + '\n')
         table += ('</td>')
-        table += ('<td>' + jl['gherkinLang'] + '</td>')
-        table += ('<td>' + (jl['Used by'] if 'Used by' in jl else '-') + '</td>')
-        table += ('<td>' + (jl['Contributors'] if 'Contributors' in jl else '-') + '</td>')
-        table += ('<td>' + ('<a href=https://github.com' + jl['licenseLink'] + '>' + jl['license'] + '</a>' if 'licenseLink' in jl else '-') + '</td>')
+        table += ('<td>' + row['gherkinLang'] + '</td>')
+        table += ('<td>' + (row['Used by'] if 'Used by' in row else '-') + '</td>')
+        table += ('<td>' + (row['Contributors'] if 'Contributors' in row else '-') + '</td>')
+        table += ('<td>' + ('<a href=https://github.com' + row['licenseLink'] + '>' + row['license'] + '</a>' if 'licenseLink' in row else '-') + '</td>')
         table += ('\n</tr>\n')
 
     table += ('</table>\n')
