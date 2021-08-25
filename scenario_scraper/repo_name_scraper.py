@@ -4,6 +4,7 @@ import scrapy
 
 from scrapy.crawler import CrawlerProcess
 from scrapy.exceptions import CloseSpider
+from threading import Lock
 
 
 class RepoNameSearchSpider(scrapy.Spider):
@@ -14,6 +15,7 @@ class RepoNameSearchSpider(scrapy.Spider):
 
     def __init__(self, output_file=None, **kwargs):
         super().__init__(**kwargs)
+        self.lock = Lock()
         self.output_file = output_file
         self.output_file.seek(0)
         for line in self.output_file.readlines():
@@ -51,8 +53,8 @@ class RepoNameSearchSpider(scrapy.Spider):
             repo_name = repoSelector.xpath('text()').get().strip(),
             repo_name = repo_name[0]
 
-            # TODO: these operations are not re-entrant. Not sure how crawler processes multiple start_urls
-            # if they are truly parallel, below critical section requires an execution barrier
+            # these operations are not re-entrant. need to protect uniqueNames dict
+            self.lock.acquire()
             if repo_name not in self.uniqueNames:
                 result = {
                     'name': repo_name,
@@ -61,6 +63,7 @@ class RepoNameSearchSpider(scrapy.Spider):
                 self.output_file.write(json.dumps(result) + '\n')
                 self.output_file.flush()
                 self.uniqueNames[repo_name] = True
+            self.lock.release()
             # end critical section
 
         next_page_anchor = response.css('a.next_page')
