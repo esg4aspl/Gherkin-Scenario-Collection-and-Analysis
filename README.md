@@ -8,8 +8,13 @@ Install and run with `npm install` and `npm start`.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Scraper
-
-Run `scenario_scraper/scraper.py -h` and follow prompted instructions.
+To initialize dependencies and virtenv, run:
+```shell
+cd scenario_scraper
+pipenv install
+pipenv shell
+```
+Run `python scraper.py -h` and follow prompted instructions.
 
 List of discovered GitHub repositories with more than 10 Gherkin Features are
 listed below. Raw data can be found at `metadata_output.jl`
@@ -18,9 +23,9 @@ listed below. Raw data can be found at `metadata_output.jl`
 
 ### Summary
 <table>
-<tr><th>Last updated at</th><td>2021-08-19 07:06:50 UTC</td></tr>
-<tr><th>#of Repositories</th><td>1118</td></tr>
-<tr><th>#of Repositories with more than 10 Features</th><td>203</td></tr>
+<tr><th>Last updated at</th><td>2021-08-25 11:53:20 UTC</td></tr>
+<tr><th>#of Repositories</th><td>1314</td></tr>
+<tr><th>#of Repositories with more than 10 Features</th><td>228</td></tr>
 </table>
 
 
@@ -35,6 +40,12 @@ Python:0.6%
 JavaScript:0.1%
 Batchfile:0.0%
 </td><td>ru</td><td>-</td><td>65</td><td><a href=https://github.com/Pr-Mex/vanessa-automation/blob/develop/LICENSE>BSD-3-Clause License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/Pr-Mex/vanessa-automation-single>Pr-Mex/vanessa-automation-single</a></td><td><a href=https://github.com/Pr-Mex/vanessa-automation-single/search?l=Gherkin>1001</a></td><td>1C Enterprise:58.8%
+HTML:21.1%
+Gherkin:19.4%
+</td><td>N/A</td><td>-</td><td>-</td><td><a href=https://github.com/Pr-Mex/vanessa-automation-single/blob/master/LICENSE>BSD-3-Clause License</a></td>
 </tr>
 <tr>
 <td><a href=https://github.com/Sylius/Sylius>Sylius/Sylius</a></td><td><a href=https://github.com/Sylius/Sylius/search?l=Gherkin>645</a></td><td>PHP:81.5%
@@ -98,6 +109,15 @@ Lua:2.1%
 CMake:1.9%
 Python:0.4%
 </td><td>en</td><td>-</td><td>128</td><td><a href=https://github.com/shubham121297/osrmv2/blob/master/LICENSE.TXT>BSD-2-Clause License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/shubham121297/osrm-new>shubham121297/osrm-new</a></td><td><a href=https://github.com/shubham121297/osrm-new/search?l=Gherkin>206</a></td><td>C++:65.7%
+Gherkin:23.3%
+JavaScript:6.3%
+Lua:2.1%
+CMake:1.9%
+Python:0.4%
+</td><td>en</td><td>-</td><td>128</td><td><a href=https://github.com/shubham121297/osrm-new/blob/master/LICENSE.TXT>BSD-2-Clause License</a></td>
 </tr>
 <tr>
 <td><a href=https://github.com/shubham121297/osrmv1>shubham121297/osrmv1</a></td><td><a href=https://github.com/shubham121297/osrmv1/search?l=Gherkin>205</a></td><td>C++:65.8%
@@ -318,6 +338,16 @@ Dockerfile:0.9%
 </td><td>en</td><td>-</td><td>133</td><td><a href=https://github.com/alphagov/smokey/blob/main/LICENCE>MIT License</a></td>
 </tr>
 <tr>
+<td><a href=https://github.com/boasman/gitPractica>boasman/gitPractica</a></td><td><a href=https://github.com/boasman/gitPractica/search?l=Gherkin>65</a></td><td>JavaScript:77.6%
+Ruby:15.9%
+Gherkin:2.5%
+HTML:1.5%
+CSS:1.3%
+TypeScript:1.0%
+CoffeeScript:0.2%
+</td><td>en</td><td>-</td><td>163</td><td><a href=https://github.com/boasman/gitPractica/blob/master/LICENSE.txt>Apache-2.0 License</a></td>
+</tr>
+<tr>
 <td><a href=https://github.com/calacademy-research/antcat>calacademy-research/antcat</a></td><td><a href=https://github.com/calacademy-research/antcat/search?l=Gherkin>64</a></td><td>Ruby:74.7%
 Haml:12.4%
 Gherkin:5.0%
@@ -367,6 +397,12 @@ SCSS:5.5%
 HTML:4.8%
 Gherkin:2.8%
 </td><td>en</td><td>-</td><td>-</td><td><a href=https://github.com/LamApps/healthcare-rails/blob/master/LICENSE>View license</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/gwen-interpreter/gwen-web>gwen-interpreter/gwen-web</a></td><td><a href=https://github.com/gwen-interpreter/gwen-web/search?l=Gherkin>55</a></td><td>Scala:72.8%
+Gherkin:14.3%
+ASL:10.8%
+</td><td>en</td><td>-</td><td>5</td><td><a href=https://github.com/gwen-interpreter/gwen-web/blob/master/LICENSE>View license</a></td>
 </tr>
 <tr>
 <td><a href=https://github.com/adammck/crabgrass>adammck/crabgrass</a></td><td><a href=https://github.com/adammck/crabgrass/search?l=Gherkin>52</a></td><td>Ruby:47.1%
@@ -717,6 +753,24 @@ JavaScript:0.1%
 </td><td>en</td><td>8</td><td>6</td><td>-</td>
 </tr>
 <tr>
+<td><a href=https://github.com/ayrabo/ayrabo>ayrabo/ayrabo</a></td><td><a href=https://github.com/ayrabo/ayrabo/search?l=Gherkin>28</a></td><td>Python:72.5%
+HTML:10.0%
+Gherkin:9.2%
+JavaScript:6.5%
+SCSS:1.1%
+Jinja:0.5%
+</td><td>en</td><td>-</td><td>2</td><td>-</td>
+</tr>
+<tr>
+<td><a href=https://github.com/sapcc/elektra>sapcc/elektra</a></td><td><a href=https://github.com/sapcc/elektra/search?l=Gherkin>28</a></td><td>JavaScript:44.8%
+Ruby:33.5%
+Haml:11.7%
+CoffeeScript:5.2%
+SCSS:3.7%
+Gherkin:0.5%
+</td><td>en</td><td>-</td><td>32</td><td><a href=https://github.com/sapcc/elektra/blob/master/LICENSE>Apache-2.0 License</a></td>
+</tr>
+<tr>
 <td><a href=https://github.com/robstwd/fhir-ig-experiment-01>robstwd/fhir-ig-experiment-01</a></td><td><a href=https://github.com/robstwd/fhir-ig-experiment-01/search?l=Gherkin>27</a></td><td>Gherkin:66.2%
 Ruby:33.8%
 </td><td>en</td><td>-</td><td>2</td><td><a href=https://github.com/robstwd/fhir-ig-experiment-01/blob/master/LICENSE>MIT License</a></td>
@@ -875,6 +929,18 @@ CSS:0.1%
 </td><td>en</td><td>-</td><td>776</td><td><a href=https://github.com/Kir-Mok/jekyll/blob/master/LICENSE>MIT License</a></td>
 </tr>
 <tr>
+<td><a href=https://github.com/pafnootiy/jekyll>pafnootiy/jekyll</a></td><td><a href=https://github.com/pafnootiy/jekyll/search?l=Gherkin>25</a></td><td></td><td>en</td><td>-</td><td>775</td><td><a href=https://github.com/pafnootiy/jekyll/blob/master/LICENSE>MIT License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/AleksandrTheFirst/jekyll>AleksandrTheFirst/jekyll</a></td><td><a href=https://github.com/AleksandrTheFirst/jekyll/search?l=Gherkin>25</a></td><td>Ruby:72.8%
+Gherkin:20.4%
+JavaScript:4.5%
+HTML:1.3%
+Shell:0.9%
+CSS:0.1%
+</td><td>en</td><td>-</td><td>775</td><td><a href=https://github.com/AleksandrTheFirst/jekyll/blob/master/LICENSE>MIT License</a></td>
+</tr>
+<tr>
 <td><a href=https://github.com/NordicSemiconductor/asset-tracker-cloud-aws-js>NordicSemiconductor/asset-tracker-cloud-aws-js</a></td><td><a href=https://github.com/NordicSemiconductor/asset-tracker-cloud-aws-js/search?l=Gherkin>24</a></td><td>TypeScript:87.1%
 Gherkin:12.7%
 </td><td>en</td><td>2</td><td>8</td><td><a href=https://github.com/NordicSemiconductor/asset-tracker-cloud-aws-js/blob/saga/LICENSE>BSD-3-Clause License</a></td>
@@ -903,6 +969,20 @@ Gherkin:28.2%
 Gherkin:6.3%
 Java:3.2%
 </td><td>N/A</td><td>-</td><td>-</td><td>-</td>
+</tr>
+<tr>
+<td><a href=https://github.com/berkshelf/berkshelf>berkshelf/berkshelf</a></td><td><a href=https://github.com/berkshelf/berkshelf/search?l=Gherkin>24</a></td><td>Ruby:79.0%
+Gherkin:21.0%
+</td><td>en</td><td>14,409</td><td>134</td><td><a href=https://github.com/berkshelf/berkshelf/blob/main/LICENSE>View license</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/kumarit84/drupal9>kumarit84/drupal9</a></td><td><a href=https://github.com/kumarit84/drupal9/search?l=Gherkin>24</a></td><td>PHP:84.6%
+CSS:5.3%
+JavaScript:4.5%
+Twig:3.9%
+HTML:1.6%
+Shell:0.1%
+</td><td>en</td><td>-</td><td>-</td><td><a href=https://github.com/kumarit84/drupal9/blob/main/LICENSE.txt>GPL-2.0 License</a></td>
 </tr>
 <tr>
 <td><a href=https://github.com/kyleschmolze/rspec-rails>kyleschmolze/rspec-rails</a></td><td><a href=https://github.com/kyleschmolze/rspec-rails/search?l=Gherkin>23</a></td><td>Ruby:74.6%
@@ -1006,6 +1086,11 @@ Ruby:7.3%
 <tr>
 <td><a href=https://github.com/ilake/inherit>ilake/inherit</a></td><td><a href=https://github.com/ilake/inherit/search?l=Gherkin>21</a></td><td>Ruby:73.1%
 JavaScript:26.9%
+</td><td>en</td><td>-</td><td>-</td><td>-</td>
+</tr>
+<tr>
+<td><a href=https://github.com/SarigaMallika/Android_latest>SarigaMallika/Android_latest</a></td><td><a href=https://github.com/SarigaMallika/Android_latest/search?l=Gherkin>21</a></td><td>Java:86.1%
+Gherkin:13.9%
 </td><td>en</td><td>-</td><td>-</td><td>-</td>
 </tr>
 <tr>
@@ -1163,6 +1248,11 @@ Shell:0.1%
 </td><td>en</td><td>-</td><td>5</td><td>-</td>
 </tr>
 <tr>
+<td><a href=https://github.com/MorkovkAs/smoke-tests-riskgap>MorkovkAs/smoke-tests-riskgap</a></td><td><a href=https://github.com/MorkovkAs/smoke-tests-riskgap/search?l=Gherkin>17</a></td><td>Gherkin:72.9%
+Ruby:27.1%
+</td><td>en</td><td>-</td><td>-</td><td>-</td>
+</tr>
+<tr>
 <td><a href=https://github.com/hyurii/BehaveProDemo>hyurii/BehaveProDemo</a></td><td><a href=https://github.com/hyurii/BehaveProDemo/search?l=Gherkin>16</a></td><td>C#:41.7%
 Gherkin:31.5%
 HTML:26.8%
@@ -1190,6 +1280,21 @@ Gherkin:9.8%
 </tr>
 <tr>
 <td><a href=https://github.com/natcupo/python-selenium-automation_qa_scripts>natcupo/python-selenium-automation_qa_scripts</a></td><td><a href=https://github.com/natcupo/python-selenium-automation_qa_scripts/search?l=Gherkin>16</a></td><td>Python:84.0%
+Gherkin:16.0%
+</td><td>en</td><td>-</td><td>-</td><td>-</td>
+</tr>
+<tr>
+<td><a href=https://github.com/famished-tiger/SRL-Ruby>famished-tiger/SRL-Ruby</a></td><td><a href=https://github.com/famished-tiger/SRL-Ruby/search?l=Gherkin>16</a></td><td>Ruby:82.7%
+Gherkin:16.7%
+</td><td>en</td><td>-</td><td>-</td><td><a href=https://github.com/famished-tiger/SRL-Ruby/blob/master/LICENSE.txt>View license</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/natcupo/python-selenium-automation_reviews>natcupo/python-selenium-automation_reviews</a></td><td><a href=https://github.com/natcupo/python-selenium-automation_reviews/search?l=Gherkin>16</a></td><td>Python:84.0%
+Gherkin:16.0%
+</td><td>en</td><td>-</td><td>-</td><td>-</td>
+</tr>
+<tr>
+<td><a href=https://github.com/natcupo/python-selenium-reviews>natcupo/python-selenium-reviews</a></td><td><a href=https://github.com/natcupo/python-selenium-reviews/search?l=Gherkin>16</a></td><td>Python:84.0%
 Gherkin:16.0%
 </td><td>en</td><td>-</td><td>-</td><td>-</td>
 </tr>
@@ -1225,6 +1330,11 @@ Dockerfile:0.4%
 </td><td>en</td><td>-</td><td>-</td><td>-</td>
 </tr>
 <tr>
+<td><a href=https://github.com/screwdriver-cd/screwdriver>screwdriver-cd/screwdriver</a></td><td><a href=https://github.com/screwdriver-cd/screwdriver/search?l=Gherkin>15</a></td><td>JavaScript:96.9%
+Gherkin:3.1%
+</td><td>en</td><td>-</td><td>71</td><td><a href=https://github.com/screwdriver-cd/screwdriver/blob/master/LICENSE>View license</a></td>
+</tr>
+<tr>
 <td><a href=https://github.com/robertbrook/findyourmp>robertbrook/findyourmp</a></td><td><a href=https://github.com/robertbrook/findyourmp/search?l=Gherkin>14</a></td><td>Ruby:72.4%
 CSS:17.3%
 JavaScript:10.1%
@@ -1239,6 +1349,11 @@ Less:0.7%
 Gherkin:0.5%
 Shell:0.4%
 </td><td>en</td><td>-</td><td>13</td><td><a href=https://github.com/cross-solution/YAWIK/blob/master/LICENSE>MIT License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/wellGlobal01/Projeto_CRDC>wellGlobal01/Projeto_CRDC</a></td><td><a href=https://github.com/wellGlobal01/Projeto_CRDC/search?l=Gherkin>14</a></td><td>JavaScript:81.1%
+Gherkin:18.9%
+</td><td>pt</td><td>-</td><td>-</td><td>-</td>
 </tr>
 <tr>
 <td><a href=https://github.com/hilam/i18web>hilam/i18web</a></td><td><a href=https://github.com/hilam/i18web/search?l=Gherkin>13</a></td><td>Python:56.2%
@@ -1269,6 +1384,12 @@ Gherkin:49.7%
 <td><a href=https://github.com/thoth-station/integration-tests>thoth-station/integration-tests</a></td><td><a href=https://github.com/thoth-station/integration-tests/search?l=Gherkin>13</a></td><td>Python:82.1%
 Gherkin:17.9%
 </td><td>en</td><td>-</td><td>8</td><td><a href=https://github.com/thoth-station/integration-tests/blob/master/LICENSE>GPL-3.0 License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/chef/chef-vault>chef/chef-vault</a></td><td><a href=https://github.com/chef/chef-vault/search?l=Gherkin>13</a></td><td>Ruby:85.3%
+Gherkin:14.2%
+Shell:0.5%
+</td><td>en</td><td>277</td><td>44</td><td><a href=https://github.com/chef/chef-vault/blob/main/LICENSE>Apache-2.0 License</a></td>
 </tr>
 <tr>
 <td><a href=https://github.com/ramorimti/netbanking-master>ramorimti/netbanking-master</a></td><td><a href=https://github.com/ramorimti/netbanking-master/search?l=Gherkin>12</a></td><td>Ruby:59.0%
@@ -1312,6 +1433,22 @@ Gherkin:5.2%
 Makefile:3.7%
 Python:1.8%
 </td><td>en</td><td>-</td><td>53</td><td><a href=https://github.com/cask/cask/blob/master/COPYING>GPL-3.0 License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/chef/delivery-cli>chef/delivery-cli</a></td><td><a href=https://github.com/chef/delivery-cli/search?l=Gherkin>12</a></td><td>Rust:77.9%
+Gherkin:13.6%
+Ruby:6.9%
+</td><td>en</td><td>-</td><td>29</td><td><a href=https://github.com/chef/delivery-cli/blob/main/LICENSE>Apache-2.0 License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/universal-path/specification>universal-path/specification</a></td><td><a href=https://github.com/universal-path/specification/search?l=Gherkin>12</a></td><td>Gherkin:100.0%
+</td><td>en</td><td>-</td><td>-</td><td><a href=https://github.com/universal-path/specification/blob/main/LICENSE>MIT License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/NordicSemiconductor/asset-tracker-cloud-azure-js>NordicSemiconductor/asset-tracker-cloud-azure-js</a></td><td><a href=https://github.com/NordicSemiconductor/asset-tracker-cloud-azure-js/search?l=Gherkin>12</a></td><td>TypeScript:85.4%
+Gherkin:12.6%
+Dockerfile:1.4%
+</td><td>en</td><td>-</td><td>7</td><td><a href=https://github.com/NordicSemiconductor/asset-tracker-cloud-azure-js/blob/saga/LICENSE>BSD-3-Clause License</a></td>
 </tr>
 <tr>
 <td><a href=https://github.com/peterloggie/eviltester-api-challenges-karate>peterloggie/eviltester-api-challenges-karate</a></td><td><a href=https://github.com/peterloggie/eviltester-api-challenges-karate/search?l=Gherkin>11</a></td><td>Gherkin:98.0%
@@ -1378,6 +1515,19 @@ JavaScript:0.7%
 </td><td>en</td><td>-</td><td>3</td><td>-</td>
 </tr>
 <tr>
+<td><a href=https://github.com/alphagov/search-admin>alphagov/search-admin</a></td><td><a href=https://github.com/alphagov/search-admin/search?l=Gherkin>11</a></td><td>Ruby:78.0%
+HTML:13.8%
+Gherkin:5.3%
+SCSS:1.5%
+JavaScript:1.4%
+</td><td>en</td><td>-</td><td>47</td><td><a href=https://github.com/alphagov/search-admin/blob/main/LICENSE>MIT License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/wepala/store-module>wepala/store-module</a></td><td><a href=https://github.com/wepala/store-module/search?l=Gherkin>11</a></td><td>Go:87.5%
+Gherkin:12.5%
+</td><td>en</td><td>-</td><td>4</td><td>-</td>
+</tr>
+<tr>
 <td><a href=https://github.com/GSS-Cogs/gss-utils>GSS-Cogs/gss-utils</a></td><td><a href=https://github.com/GSS-Cogs/gss-utils/search?l=Gherkin>10</a></td><td>Python:72.8%
 Gherkin:26.9%
 </td><td>en</td><td>-</td><td>13</td><td><a href=https://github.com/GSS-Cogs/gss-utils/blob/master/LICENSE>Apache-2.0 License</a></td>
@@ -1431,6 +1581,20 @@ XSLT:4.1%
 <td><a href=https://github.com/Mameluke8888/Telvero>Mameluke8888/Telvero</a></td><td><a href=https://github.com/Mameluke8888/Telvero/search?l=Gherkin>10</a></td><td>Python:78.3%
 Gherkin:21.7%
 </td><td>en</td><td>-</td><td>-</td><td>-</td>
+</tr>
+<tr>
+<td><a href=https://github.com/avdgaag/rpub>avdgaag/rpub</a></td><td><a href=https://github.com/avdgaag/rpub/search?l=Gherkin>10</a></td><td>Ruby:75.3%
+Gherkin:22.1%
+CSS:1.6%
+HTML:1.0%
+</td><td>en</td><td>-</td><td>7</td><td><a href=https://github.com/avdgaag/rpub/blob/master/LICENSE>MIT License</a></td>
+</tr>
+<tr>
+<td><a href=https://github.com/Brille24/SyliusLdapPlugin>Brille24/SyliusLdapPlugin</a></td><td><a href=https://github.com/Brille24/SyliusLdapPlugin/search?l=Gherkin>10</a></td><td>PHP:71.3%
+Gherkin:17.4%
+JavaScript:8.0%
+Shell:3.3%
+</td><td>en</td><td>-</td><td>3</td><td>-</td>
 </tr>
 </table>
 
