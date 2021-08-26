@@ -14,6 +14,11 @@ def get_language_from_feature(text):
     return language
 
 
+def parse_text(text):
+    parser = Parser()
+    return parser.parse(TokenScanner(text))
+
+
 if __name__ == "__main__":
     file = open('test.feature', 'r')
     text = file.read(1000)
