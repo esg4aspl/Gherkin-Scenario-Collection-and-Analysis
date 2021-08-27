@@ -1,6 +1,7 @@
 import os
 import gherkin_parse_util
 from Scenario import Scenario
+from StepWithTag import StepWithTag
 
 
 def get_scenarios_from_directory(directory):
@@ -60,10 +61,10 @@ def convert_parsed_scenario(parsed_scenario):
     for step in parsed_scenario['steps']:
         keyword = step['keyword'].strip()
         if keyword in inter_segment_keywords:
-            scenario.steps[last_seen_segment_keyword].append({'keyword': keyword, 'text': step['text']})
+            scenario.steps[last_seen_segment_keyword].append(StepWithTag(step['text'], keyword))
         elif keyword in segment_keywords:
             last_seen_segment_keyword = keyword
-            scenario.steps[last_seen_segment_keyword].append({'keyword': 'And', 'text': step['text']})
+            scenario.steps[last_seen_segment_keyword].append(StepWithTag(step['text'], 'And'))
     return scenario
 
 

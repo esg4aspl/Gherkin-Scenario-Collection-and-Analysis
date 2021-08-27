@@ -12,9 +12,8 @@ class Scenario:
     def __repr__(self) -> str:
         return self.__str__()
 
-    def get_step_as_text(self, step_name):
-        step = self.steps[step_name]
+    def get_steps_as_text(self, step_name):
         text = ''
-        for statement in step:
-            text += statement['keyword'] + ' ' + statement['text']
-        return text
+        for step in self.steps[step_name]:
+            text += step.get_step_as_text() + ' '
+        return text.strip()

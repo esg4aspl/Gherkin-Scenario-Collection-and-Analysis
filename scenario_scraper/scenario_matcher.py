@@ -10,9 +10,9 @@ def match_scenarios_in_directory(directory):
 
     corpus = []
     for scenario in scenarios:
-        corpus.append(scenario.get_step_as_text('Given'))
+        corpus.append(scenario.get_steps_as_text('Given'))
     for scenario in scenarios:
-        corpus.append(scenario.get_step_as_text('Then'))
+        corpus.append(scenario.get_steps_as_text('Then'))
 
     pw = semantic_similarity_nltk.get_pairwise_similarity_form_corpus(corpus)
     print(pw)
@@ -44,4 +44,5 @@ def get_readable_result(scenarios, x):
 
 
 if __name__ == '__main__':
-    match_scenarios_in_directory('scenarios')
+    match_scenarios_in_directory('test_scenarios/tag_testing')
+    # match_scenarios_in_directory('test_scenarios/tuglular_v1')
