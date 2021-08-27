@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 scrapy = "*"
 gherkin-official = "*"
+nltk = "*"
+sklearn = "*"
 
 [dev-packages]
 
