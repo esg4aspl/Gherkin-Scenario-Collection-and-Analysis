@@ -36,21 +36,41 @@ def visualize_results(results):
 
     accuracy = []
     for i in range(0, len(x)):
-        accuracy.append((tp[i] + tn[i]) / len(results))
+        accuracy.append((tp[i] + tn[i]) / (tp[i] + tn[i] + fp[i] + fn[i]))
+
+    normalize = False
+
+    if normalize:
+        tn = [x / len(results) for x in tn]
+        fn = [x / len(results) for x in fn]
+        tp = [x / len(results) for x in tp]
+        fp = [x / len(results) for x in fp]
+        accuracy_for_stacked = accuracy
+    else:
+        accuracy_for_stacked = [x * len(results) for x in accuracy]
 
     # plotting the points
     # fig, (ax1, ax2) = plt.subplots(2, sharex=True)
-    fig, (ax1, ax2) = plt.subplots(2)
+    accuracy_plot = True
+    if accuracy_plot:
+        fig, (ax1, ax2) = plt.subplots(2)
+    else:
+        fig, (ax1) = plt.subplots(1)
     fig.suptitle('TODO')
     ax1.grid(axis='x', color='0.95')
     ax1.stackplot(x, tp, tn, fn, fp, labels=['TP', 'TN', 'FN', 'FP'], step='post')
-    ax1.set_ylabel('Clause Pair Count')
+    ax1.step(x, accuracy_for_stacked, where='post', linestyle='dashed', linewidth=7)
+    if normalize:
+        ax1.set_ylabel('Rate')
+    else:
+        ax1.set_ylabel('Clause Pair Count')
     ax1.legend(loc='upper left')
 
-    ax2.step(x, accuracy, where='post', label='accuracy')
-    ax2.legend(loc='upper left')
-    ax2.grid(axis='x', color='0.95')
-    ax2.set_ylabel('Rate')
+    if accuracy_plot:
+        ax2.step(x, accuracy, where='post', label='accuracy')
+        ax2.legend(loc='upper left')
+        ax2.grid(axis='x', color='0.95')
+        ax2.set_ylabel('Rate')
     plt.xlabel('Threshold')
 
     # giving a title to my graph
