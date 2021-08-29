@@ -49,11 +49,9 @@ def visualize_results(results):
     else:
         accuracy_for_stacked = [x * len(results) for x in accuracy]
 
-    # plotting the points
-    # fig, (ax1, ax2) = plt.subplots(2, sharex=True)
     accuracy_plot = True
     if accuracy_plot:
-        fig, (ax1, ax2) = plt.subplots(2)
+        fig, (ax1, ax2) = plt.subplots(2, sharex=True)
     else:
         fig, (ax1) = plt.subplots(1)
     fig.suptitle('TODO')
@@ -67,7 +65,7 @@ def visualize_results(results):
     ax1.legend(loc='upper left')
 
     if accuracy_plot:
-        ax2.step(x, accuracy, where='post', label='accuracy')
+        ax2.step(x, accuracy, where='post', label='accuracy', linewidth=7)
         ax2.legend(loc='upper left')
         ax2.grid(axis='x', color='0.95')
         ax2.set_ylabel('Rate')
