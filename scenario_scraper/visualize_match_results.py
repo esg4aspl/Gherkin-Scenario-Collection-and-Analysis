@@ -69,6 +69,7 @@ def visualize_results(results):
         ax2.legend(loc='upper left')
         ax2.grid(axis='x', color='0.95')
         ax2.set_ylabel('Rate')
+        ax2.set_ylim([-0.1, 1.1])
     plt.xlabel('Threshold')
 
     # giving a title to my graph
