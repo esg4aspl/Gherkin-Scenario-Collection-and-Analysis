@@ -39,21 +39,21 @@ def visualize_results(results):
         accuracy.append((tp[i] + tn[i]) / len(results))
 
     # plotting the points
-    plt.stackplot(x, tp, tn, fn, fp, labels=['TP', 'TN', 'FN', 'FP'], step='post')
-    plt.plot(x, accuracy)
-    # plt.stackplot(x, tp)
-    # plt.stackplot(x, fp)
-    # plt.plot(x, tp)
-    # plt.plot(x, fp)
+    # fig, (ax1, ax2) = plt.subplots(2, sharex=True)
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle('TODO')
+    ax1.grid(axis='x', color='0.95')
+    ax1.stackplot(x, tp, tn, fn, fp, labels=['TP', 'TN', 'FN', 'FP'], step='post')
+    ax1.set_ylabel('Clause Pair Count')
+    ax1.legend(loc='upper left')
 
-    # naming the x axis
-    plt.xlabel('x - axis')
-    # naming the y axis
-    plt.ylabel('y - axis')
+    ax2.step(x, accuracy, where='post', label='accuracy')
+    ax2.legend(loc='upper left')
+    ax2.grid(axis='x', color='0.95')
+    ax2.set_ylabel('Rate')
+    plt.xlabel('Threshold')
 
     # giving a title to my graph
-    plt.title('My first graph!')
-    plt.legend(loc='upper left')
 
     # function to show the plot
     plt.show()
