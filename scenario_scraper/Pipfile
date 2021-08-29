@@ -8,6 +8,7 @@ scrapy = "*"
 gherkin-official = "*"
 nltk = "*"
 sklearn = "*"
+matplotlib = "*"
 
 [dev-packages]
 

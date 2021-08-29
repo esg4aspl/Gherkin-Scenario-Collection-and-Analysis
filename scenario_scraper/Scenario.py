@@ -1,10 +1,13 @@
+from StepGroup import StepGroup
+
+
 class Scenario:
 
     def __init__(self):
         self.scenario_name = ''
         self.feature_name = ''
         self.file_name = ''
-        self.steps = {'Given': [], 'When': [], 'Then': []}
+        self.step_groups = {'Given': StepGroup('Given'), 'When': StepGroup('When'), 'Then': StepGroup('Then')}
 
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
@@ -12,8 +15,3 @@ class Scenario:
     def __repr__(self) -> str:
         return self.__str__()
 
-    def get_steps_as_text(self, step_name):
-        text = ''
-        for step in self.steps[step_name]:
-            text += step.get_step_as_text() + ' '
-        return text.strip()

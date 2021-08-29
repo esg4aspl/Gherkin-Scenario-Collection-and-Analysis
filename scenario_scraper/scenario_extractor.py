@@ -61,10 +61,10 @@ def convert_parsed_scenario(parsed_scenario):
     for step in parsed_scenario['steps']:
         keyword = step['keyword'].strip()
         if keyword in inter_segment_keywords:
-            scenario.steps[last_seen_segment_keyword].append(StepWithTag(step['text'], keyword))
+            scenario.step_groups[last_seen_segment_keyword].append(StepWithTag(step['text'], keyword))
         elif keyword in segment_keywords:
             last_seen_segment_keyword = keyword
-            scenario.steps[last_seen_segment_keyword].append(StepWithTag(step['text'], 'And'))
+            scenario.step_groups[last_seen_segment_keyword].append(StepWithTag(step['text'], 'And'))
     return scenario
 
 
