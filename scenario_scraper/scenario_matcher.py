@@ -1,5 +1,6 @@
 import scenario_extractor
 import semantic_similarity_nltk
+import visualize_match_results
 
 
 def match_scenarios_in_directory(directory):
@@ -25,11 +26,13 @@ def match_scenarios_in_directory(directory):
             results.append({'score': pw[x][y],
                             'x': (scenario_steps_in_corpus[x].keyword + ' of ' + scenarios_in_corpus[x].scenario_name),
                             'y': (scenario_steps_in_corpus[y].keyword + ' of ' + scenarios_in_corpus[y].scenario_name),
-                            'shouldMatch?': scenario_steps_in_corpus[x].does_match(scenario_steps_in_corpus[y])})
+                            'isMatched': scenario_steps_in_corpus[x].does_match(scenario_steps_in_corpus[y])})
 
     results.sort(key=lambda x: x['score'], reverse=True)
     for item in results:
         print(item)
+
+    visualize_match_results.visualize_results(results)
 
 
 if __name__ == '__main__':
