@@ -28,15 +28,21 @@ def visualize_results(results):
             fn.append(fn[-1])
             tn.append(tn[-1] - 1)
 
-    x.append(-0.1)
+    x.append(-0.5)
     tp.append(match_count)
     fp.append(not_match_count)
     fn.append(0)
     tn.append(0)
 
     accuracy = []
+    fdr = []
+    fomissionr = []
+    tpr = []
     for i in range(0, len(x)):
         accuracy.append((tp[i] + tn[i]) / (tp[i] + tn[i] + fp[i] + fn[i]))
+        fdr.append(fp[i] / ((fp[i] + tp[i]) if (fp[i] + tp[i] != 0) else 1))
+        fomissionr.append(fn[i] / ((fn[i] + tn[i]) if (fn[i] + tn[i] != 0) else 1))
+        tpr.append(tp[i] / ((fn[i] + tp[i]) if (fn[i] + tp[i] != 0) else 1))
 
     normalize = False
 
@@ -51,30 +57,38 @@ def visualize_results(results):
 
     accuracy_plot = True
     if accuracy_plot:
-        fig, (ax1, ax2) = plt.subplots(2, sharex=True)
+        fig, (all_stacked, should_match_stacked, metadata) = plt.subplots(3, sharex=True)
     else:
-        fig, (ax1) = plt.subplots(1)
+        fig, (all_stacked, should_match_stacked) = plt.subplots(2)
     fig.suptitle('TODO')
-    ax1.grid(axis='x', color='0.95')
-    ax1.stackplot(x, tp, tn, fn, fp, labels=['TP', 'TN', 'FN', 'FP'], step='post')
-    ax1.step(x, accuracy_for_stacked, where='post', linestyle='dashed', linewidth=7)
+    all_stacked.grid(axis='x', color='0.95')
+    all_stacked.stackplot(x, tp, tn, fn, fp, labels=['TP', 'TN', 'FN', 'FP'], step='post')
+    all_stacked.step(x, accuracy_for_stacked, where='post', linestyle='dashed', linewidth=7)
     if normalize:
-        ax1.set_ylabel('Rate')
+        all_stacked.set_ylabel('Rate')
     else:
-        ax1.set_ylabel('Clause Pair Count')
-    ax1.legend(loc='upper left')
+        all_stacked.set_ylabel('Clause Pair Count')
+    all_stacked.legend(loc='upper left')
+
+    should_match_stacked.grid(axis='x', color='0.95')
+    should_match_stacked.stackplot(x, tp, fn, labels=['TP', 'FN'], step='post')
+    if normalize:
+        should_match_stacked.set_ylabel('Rate')
+    else:
+        should_match_stacked.set_ylabel('Clause Pair Count')
+    should_match_stacked.legend(loc='upper left')
 
     if accuracy_plot:
-        ax2.step(x, accuracy, where='post', label='accuracy', linewidth=7)
-        ax2.legend(loc='upper left')
-        ax2.grid(axis='x', color='0.95')
-        ax2.set_ylabel('Rate')
-        ax2.set_ylim([-0.1, 1.1])
+        metadata.step(x, accuracy, where='post', label='accuracy', linewidth=4)
+        metadata.step(x, fdr, where='post', label='FDR', linewidth=4)
+        metadata.step(x, fomissionr, where='post', label='FOR', linewidth=4)
+        metadata.step(x, tpr, where='post', label='TPR', linewidth=4)
+        metadata.legend(loc='upper left')
+        metadata.grid(axis='x', color='0.95')
+        metadata.set_ylabel('Rate')
+        metadata.set_ylim([-0.1, 1.1])
     plt.xlabel('Threshold')
 
-    # giving a title to my graph
-
-    # function to show the plot
     plt.show()
 
 
