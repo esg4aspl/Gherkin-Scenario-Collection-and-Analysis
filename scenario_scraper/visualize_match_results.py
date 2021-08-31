@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def visualize_results(results):
+def visualize_results(results, header):
     match_count = 0
     not_match_count = 0
     for result in results:
@@ -60,7 +60,7 @@ def visualize_results(results):
         fig, (all_stacked, should_match_stacked, metadata) = plt.subplots(3, sharex=True)
     else:
         fig, (all_stacked, should_match_stacked) = plt.subplots(2)
-    fig.suptitle('TODO')
+    fig.suptitle(header['dataset'] + '\n' + 'Alg:' + header['algName'])
     all_stacked.grid(axis='x', color='0.95')
     all_stacked.stackplot(x, tp, tn, fn, fp, labels=['TP', 'TN', 'FN', 'FP'], step='post')
     all_stacked.step(x, accuracy_for_stacked, where='post', linestyle='dashed', linewidth=7)
