@@ -4,7 +4,7 @@ Feature: Product detail page
   So that I know if the product fits my needs
 
   Scenario: pdp01 - Product detail page
-    Given I am on a product lister page
+    Given I am on a product lister page #productList
     When I select one of the items
     Then I am on the Product detail page of the selected item
-    And I can see details of the product
+    And I can see details of the product #productDetail
