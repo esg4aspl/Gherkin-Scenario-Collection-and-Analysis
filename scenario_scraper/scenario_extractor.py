@@ -70,7 +70,7 @@ def convert_parsed_scenario(parsed_scenario):
 
 def get_feature_from_file(filename):
     f = open(filename, 'r')
-    filecontent = f.read(10000)
+    filecontent = f.read()
     feature = gherkin_parse_util.parse_text(filecontent)
     return feature
 

@@ -1,6 +1,45 @@
 import matplotlib.pyplot as plt
 
 
+def insert_match_to_match_order(match_orders, uid, result):
+    if uid not in match_orders:
+        match_orders[uid] = {'matchRank': 1, 'correctMatch': result['isMatched']}
+    else:
+        existing_entry = match_orders[uid]
+        if existing_entry['correctMatch']:
+            return
+        existing_entry['matchRank'] = existing_entry['matchRank'] + 1
+        existing_entry['correctMatch'] = result['isMatched']
+
+
+def get_cumulative_match_order(match_orders):
+    match_counts_at_rank = [0] * len(match_orders)
+    for match_order in match_orders.values():
+        if match_order['correctMatch']:
+            match_counts_at_rank[match_order['matchRank']] += 1
+
+    total_count = 0
+    cumulative_match_orders = []
+    for count in match_counts_at_rank:
+        total_count += count
+        cumulative_match_orders.append(total_count)
+    return cumulative_match_orders
+
+
+def plot_match_order(results, header):
+    match_orders = {}
+    for result in results:
+        insert_match_to_match_order(match_orders, result['x_uid'], result)
+        insert_match_to_match_order(match_orders, result['y_uid'], result)
+
+    cumulative_match_order = get_cumulative_match_order(match_orders)
+    plt.plot(range(0, len(cumulative_match_order)), cumulative_match_order)
+    plt.title(header['dataset'] + '\n' + 'Alg:' + header['algName'])
+    plt.xlabel('Match Depth')
+    plt.ylabel('# of Matches')
+    plt.show()
+
+
 def visualize_results(results, header):
     match_count = 0
     not_match_count = 0
@@ -90,6 +129,7 @@ def visualize_results(results, header):
     plt.xlabel('Threshold')
 
     plt.show()
+    plot_match_order(results, header)
 
 
 if __name__ == '__main__':

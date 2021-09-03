@@ -1,7 +1,12 @@
 class StepGroup:
+
+    instance_counter = 0
+
     def __init__(self, keyword) -> None:
         self.steps = []
         self.keyword = keyword
+        self.uid = StepGroup.instance_counter
+        StepGroup.instance_counter = StepGroup.instance_counter + 1
 
     def get_steps_as_text(self):
         text = ''
