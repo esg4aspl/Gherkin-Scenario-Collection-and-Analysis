@@ -2,6 +2,7 @@ import scenario_extractor
 import semantic_similarity_nltk
 import visualize_match_results
 
+visualizer = visualize_match_results.MatchResultVisualizer()
 
 def match_scenarios_in_directory(directory):
     scenarios = scenario_extractor.get_scenarios_from_directory(directory)
@@ -33,14 +34,15 @@ def match_scenarios_in_directory(directory):
 
     header = {'dataset': directory, 'algName': 'TODO!'}
 
-    visualize_match_results.visualize_results(results, header)
+    visualizer.visualize_results(results, header)
 
 
 if __name__ == '__main__':
     # match_scenarios_in_directory('test_scenarios/tag_testing')
-    match_scenarios_in_directory('test_scenarios/tuglular_v1')
+    # match_scenarios_in_directory('test_scenarios/tuglular_v1')
     match_scenarios_in_directory('test_scenarios/bank_atm/atm_uekici')
     match_scenarios_in_directory('test_scenarios/bank_atm/atm_agyalcin')
     match_scenarios_in_directory('test_scenarios/bank_atm/eyasar')
     match_scenarios_in_directory('test_scenarios/bank_atm/icebeci_boguzer')
+    visualizer.plot_overall_graph()
 
