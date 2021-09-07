@@ -84,54 +84,54 @@ Scenario: afr15_3
     When ATM has enough money
     Then ATM goes back to welcome screen #welcome
 
-Scenario:
+Scenario: afr16
     Given ATM waiting transaction response from Bank
     And ATM sends Failed #transactionRespFailFromBank
     Then ATM displays error message
     And ATM ejects the card
     And ATM goes back to welcome screen #welcome
 
-Scenario:
+Scenario: bfr1-2:
     Given Bank receives #authReqToBank
     When card is not issued by Bank
     Then Bank returns failure to authenticate #authFailRespFromBank
 
-Scenario:
+Scenario: bfr3:
     Given Bank receives #authReqToBank
     When card is issued by Bank
     Then Bank proceeds with authentication #bankAuth
 
-Scenario:
+Scenario: bfr4_1:
     Given Bank is in authentication state #bankAuth
     When password is invalid
     Then Bank returns failure #authFailRespFromBank
 
-Scenario:
+Scenario: bfr4_2:
     Given Bank is in authentication state #bankAuth
     When password is valid
     Then Bank proceeds #checkAccountStatus
 
-Scenario:
+Scenario: bfr5
     Given Bank is in account status check step #checkAccountStatus
     When account has problems
     Then Bank returns bad account to ATM #authRespRetainFromBank
 
-Scenario:
+Scenario: bfr6
     Given Bank is in account status check step #checkAccountStatus
     When account has no problems
     Then Bank returns OK to ATM #authRespOkFromBank
 
-Scenario:
+Scenario: bfr7_1
     Given Bank received a transaction request #transactionReqToBank
     When transaction is denied
     Then Bank returns rejected to ATM #transactionRespFailFromBank
 
-Scenario:
+Scenario: bfr7_2
     Given Bank received a transaction request #transactionReqToBank
     When transaction is approved
     Then Bank returns OK to ATM #transactionRespOKFromBank
 
-Scenario:
+Scenario: bfr8
     Given Bank received transaction notification #notifyBankOnWithdraw
     Then update account with transaction
     And return OK to ATM #waitWithdrawNotfResp
