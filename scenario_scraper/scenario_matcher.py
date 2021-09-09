@@ -19,6 +19,8 @@ def match_scenarios_in_directory(directory):
         scenarios_in_corpus.append(scenario)
         scenario_steps_in_corpus.append(scenario.step_groups['Then'])
 
+    freq_words = semantic_similarity_nltk.calculate_word_freq(corpus, 50)
+    print(directory, freq_words)
     pw = semantic_similarity_nltk.get_pairwise_similarity_form_corpus(corpus)
     results = []
     for x in range(0, int(len(corpus))):
@@ -41,6 +43,7 @@ if __name__ == '__main__':
     # match_scenarios_in_directory('test_scenarios/tag_testing')
     # match_scenarios_in_directory('test_scenarios/tuglular_v1')
     match_scenarios_in_directory('test_scenarios/bank_atm/atm_uekici')
+    match_scenarios_in_directory('test_scenarios/bank_atm/mkalacik_ctoklucu')
     match_scenarios_in_directory('test_scenarios/bank_atm/atm_agyalcin')
     match_scenarios_in_directory('test_scenarios/bank_atm/eyasar')
     match_scenarios_in_directory('test_scenarios/bank_atm/icebeci_boguzer')

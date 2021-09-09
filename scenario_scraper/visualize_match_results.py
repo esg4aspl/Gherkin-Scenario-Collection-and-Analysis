@@ -6,9 +6,9 @@ class MatchResultVisualizer:
     def __init__(self):
         self.results_list = []
 
-    def insert_match_to_match_order(self, match_orders, uid, result):
+    def insert_match_to_match_order(self, match_orders, uid, step_def_name, result):
         if uid not in match_orders:
-            match_orders[uid] = {'matchRank': 1, 'correctMatch': result['isMatched']}
+            match_orders[uid] = {'matchRank': 1, 'correctMatch': result['isMatched'], 'stepDefName': step_def_name}
         else:
             existing_entry = match_orders[uid]
             if existing_entry['correctMatch']:
@@ -17,7 +17,7 @@ class MatchResultVisualizer:
             existing_entry['correctMatch'] = result['isMatched']
 
     def get_cumulative_match_order(self, match_orders, normalizeX, normalizeY):
-        match_counts_at_rank = [0] * len(match_orders)
+        match_counts_at_rank = [0] * (len(match_orders) + 1)
         for match_order in match_orders.values():
             if match_order['correctMatch']:
                 match_counts_at_rank[match_order['matchRank']] += 1
@@ -53,8 +53,11 @@ class MatchResultVisualizer:
     def get_match_order_data(self, normalizeX, normalizeY, results):
         match_orders = {}
         for result in results:
-            self.insert_match_to_match_order(match_orders, result['x_uid'], result)
-            self.insert_match_to_match_order(match_orders, result['y_uid'], result)
+            self.insert_match_to_match_order(match_orders, result['x_uid'], result['x'], result)
+            self.insert_match_to_match_order(match_orders, result['y_uid'], result['y'], result)
+        for key in list(match_orders.keys()):
+            if not match_orders[key]['correctMatch']:
+                del match_orders[key]
         xdata, cumulative_match_order = self.get_cumulative_match_order(match_orders, normalizeX, normalizeY)
         return xdata, cumulative_match_order
 
@@ -154,6 +157,7 @@ class MatchResultVisualizer:
         for result in self.results_list:
             xdata, cumulative_orders = self.get_match_order_data(True, True, result['results'])
             plt.plot(xdata, cumulative_orders, linewidth=7, label=result['header']['dataset'])
+            print('TD', result['header']['dataset'], cumulative_orders)
         plt.legend(loc='lower right')
         plt.title('Match Rate vs. Checking Depth')
         plt.xlabel('% of checked tags')
