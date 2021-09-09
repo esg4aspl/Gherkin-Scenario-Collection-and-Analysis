@@ -9,7 +9,7 @@ Feature: # Enter feature name here
     And Set maximum withdraw per day for an account
     And Set maximum and minimum withdraw per transaction
     And Open Connection to the bank network
-    Then the atm is initialized and navigated to #welcomePage
+    Then the atm is initialized and navigated to welcomePage #welcomePage
 
   Scenario: init 02 – Unsuccessful initialize
     Given ATM on Operator Panel
@@ -22,27 +22,27 @@ Feature: # Enter feature name here
     When card number is valid
     And account number is found
     And serial number log is sent
-    Then Card read is completed and navigated to #loginPage
+    Then Card read is completed and navigated to loginPage #loginPage
 
   Scenario: reader 02 – Eject Card
     Given I am at welcomePage and I entered the bank card #welcomePage
     When card is invalid
     And card read error log is sent
-    Then Eject card and navigate to #welcomepage
+    Then Eject card and navigate to welcomePage #welcomePage
 
 
   Scenario: reader 03 – Retain Card
     Given I am at welcomePage and I entered the bank card #welcomePage
     And Card is expired
     And  card expire log is send
-    Then Retain card and navigate to #welcomePage
+    Then Retain card and navigate to welcomePage #welcomePage
 
   Scenario: login 01 – Successful Login
     Given I am at loginPage #loginPage
     When I entered password
     And password is correct
     And session is set with card and account details
-    Then Login sucessful and then navigate to #homePage
+    Then Login sucessful and then navigate to homePage #homePage
 
   Scenario: login 02 – Unsuccessful Login Opeation
     Given I am at loginPage #loginPage
@@ -55,7 +55,7 @@ Feature: # Enter feature name here
     When I entered 3 times wrong password
     And Card retain message is displayed on console out
     And Card retained by atm
-    Then Login operation is unsuccessful and navigate to #welcomePage
+    Then Login operation is unsuccessful and navigate to welcomePage #welcomePage
 
   Scenario: operations 01 – Display operations list
     Given I am at homePage and session is active #homePage
