@@ -157,7 +157,7 @@ class MatchResultVisualizer:
         for result in self.results_list:
             xdata, cumulative_orders = self.get_match_order_data(True, True, result['results'])
             plt.plot(xdata, cumulative_orders, linewidth=7, label=result['header']['dataset'])
-            print('TD', result['header']['dataset'], cumulative_orders)
+            print('TD', result['header']['dataset'], ',', ','.join(map(str, cumulative_orders)))
         plt.legend(loc='lower right')
         plt.title('Match Rate vs. Checking Depth')
         plt.xlabel('% of checked tags')

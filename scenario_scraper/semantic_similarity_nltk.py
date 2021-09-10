@@ -31,6 +31,7 @@ def cosine_sim(text1, text2, verbose=None):
 
 
 def get_pairwise_similarity_form_corpus(corpus):
+    # vect = TfidfVectorizer(tokenizer=normalize, min_df=1, stop_words="english")
     vect = TfidfVectorizer(min_df=1, stop_words="english")
     tfidf = vect.fit_transform(corpus)
     pairwise_similarity = tfidf * tfidf.T

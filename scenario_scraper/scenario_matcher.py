@@ -18,6 +18,10 @@ def match_scenarios_in_directory(directory):
         corpus.append(scenario.step_groups['Then'].get_steps_as_text())
         scenarios_in_corpus.append(scenario)
         scenario_steps_in_corpus.append(scenario.step_groups['Then'])
+    # for scenario in scenarios:
+    #     corpus.append(scenario.step_groups['When'].get_steps_as_text())
+    #     scenarios_in_corpus.append(scenario)
+    #     scenario_steps_in_corpus.append(scenario.step_groups['When'])
 
     freq_words = semantic_similarity_nltk.calculate_word_freq(corpus, 50)
     print(directory, freq_words)
@@ -25,6 +29,8 @@ def match_scenarios_in_directory(directory):
     results = []
     for x in range(0, int(len(corpus))):
         for y in range(0, x):
+            if scenario_steps_in_corpus[x].keyword == 'When' or scenario_steps_in_corpus[y].keyword == 'When':
+                continue
             results.append({'score': pw[x][y],
                             'x': (scenario_steps_in_corpus[x].keyword + ' of ' + scenarios_in_corpus[x].scenario_name),
                             'x_uid': scenario_steps_in_corpus[x].uid,
