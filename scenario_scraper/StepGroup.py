@@ -29,3 +29,8 @@ class StepGroup:
 
         return False
 
+    def get_tag(self):
+        for step in self.steps:
+            if step.tag is not None:
+                return step.tag
+        return None

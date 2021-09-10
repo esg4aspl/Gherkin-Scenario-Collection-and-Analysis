@@ -10,5 +10,4 @@ Feature: Test Feature
 
   Scenario: TestSce2
     Given A given #given tag
-    When A when
     Then A test red then #then tag
