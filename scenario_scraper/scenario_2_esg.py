@@ -71,6 +71,7 @@ def match_tags_helper(node, discovered_tags, previous_node):
 def remove_complete_tags(segments):
     fill_and_mark_complete_tags(segments)
     mark_nodes_to_be_removed(segments)
+    remove_marked_nodes(segments)
 
 
 def fill_and_mark_complete_tags(segments):
@@ -113,6 +114,26 @@ def mark_nodes_to_be_removed(segments):
                 current_node.is_to_be_removed = True
 
 
+def remove_marked_nodes(segments):
+    visited_nodes = set()
+    queue = []
+    for segment in segments:
+        queue.append(segment)
+
+    while len(queue) > 0:
+        current_node = queue.pop(0)
+        if current_node in visited_nodes:
+            continue
+        print(current_node.label)
+        visited_nodes.add(current_node)
+        copy_of_descendents = current_node.next[:]
+        for descendent in copy_of_descendents:
+            queue.append(descendent)
+            if descendent.is_to_be_removed:
+                # remove removed node from current's descendents
+                # and move removed node's descendents to current node
+                current_node.next.remove(descendent)
+                current_node.append_descendents_of(descendent)
 
 
 if __name__ == '__main__':

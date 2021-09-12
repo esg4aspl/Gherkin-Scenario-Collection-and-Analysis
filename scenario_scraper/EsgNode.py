@@ -23,3 +23,8 @@ class EsgNode:
                 return True
         return False
 
+    def append_descendents_of(self, other_node):
+        for descendent in other_node.next:
+            if descendent not in self.next:
+                self.next.append(descendent)
+
