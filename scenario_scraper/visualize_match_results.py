@@ -29,7 +29,7 @@ class MatchResultVisualizer:
             cumulative_match_orders.append(total_count)
 
         if normalizeX:
-            coeff = 100/cumulative_match_orders[-1]
+            coeff = 100 / cumulative_match_orders[-1]
             for i in range(0, len(cumulative_match_orders)):
                 cumulative_match_orders[i] *= coeff
 
@@ -154,9 +154,13 @@ class MatchResultVisualizer:
         self.plot_match_order(results, header)
 
     def plot_overall_graph(self):
+        print_ready = True
+        counter = 0
         for result in self.results_list:
+            counter += 1
             xdata, cumulative_orders = self.get_match_order_data(True, True, result['results'])
-            plt.plot(xdata, cumulative_orders, linewidth=7, label=result['header']['dataset'])
+            plt.plot(xdata, cumulative_orders, linewidth=7,
+                     label='TD' + str(counter) if print_ready else result['header']['dataset'])
             print('TD', result['header']['dataset'], ',', ','.join(map(str, cumulative_orders)))
         plt.legend(loc='lower right')
         plt.title('Match Rate vs. Checking Depth')
