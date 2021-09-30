@@ -3,7 +3,7 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-# nltk.download('punkt') # if necessary...
+nltk.download('punkt') # if necessary...
 nltk.download('stopwords')
 
 stemmer = nltk.stem.porter.PorterStemmer()
@@ -31,8 +31,8 @@ def cosine_sim(text1, text2, verbose=None):
 
 
 def get_pairwise_similarity_form_corpus(corpus):
-    # vect = TfidfVectorizer(tokenizer=normalize, min_df=1, stop_words="english")
-    vect = TfidfVectorizer(min_df=1, stop_words="english")
+    vect = TfidfVectorizer(tokenizer=normalize, min_df=1, stop_words="english")
+    # vect = TfidfVectorizer(min_df=1, stop_words="english")
     tfidf = vect.fit_transform(corpus)
     pairwise_similarity = tfidf * tfidf.T
     return pairwise_similarity.A

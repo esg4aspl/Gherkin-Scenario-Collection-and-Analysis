@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 
 class MatchResultVisualizer:
 
-    def __init__(self):
+    def __init__(self, print_ready):
         self.results_list = []
+        self.print_ready = print_ready
 
     def insert_match_to_match_order(self, match_orders, uid, step_def_name, result):
         if uid not in match_orders:
@@ -43,13 +44,14 @@ class MatchResultVisualizer:
 
     def plot_match_order(self, results, header, delay_plot_show=False, normalizeX=False, normalizeY=False):
         xdata, cumulative_match_order = self.get_match_order_data(normalizeX, normalizeY, results)
-        plt.plot(xdata, cumulative_match_order)
-        plt.title(header['dataset'] + '\n' + 'Alg:' + header['algName'])
-        plt.xlabel('Match Depth')
+        plt.plot(xdata, cumulative_match_order, linewidth=7)
+        # plt.title(header['dataset'])
+        plt.title('Number of Matches vs Checked List Length')
+        plt.xlabel('List Length')
         plt.ylabel('# of Matches')
         if not delay_plot_show:
+            plt.savefig(header['dataset'].split('/')[-1] + '.png')
             plt.show()
-
     def get_match_order_data(self, normalizeX, normalizeY, results):
         match_orders = {}
         for result in results:
@@ -154,17 +156,16 @@ class MatchResultVisualizer:
         self.plot_match_order(results, header)
 
     def plot_overall_graph(self):
-        print_ready = True
         counter = 0
         for result in self.results_list:
             counter += 1
             xdata, cumulative_orders = self.get_match_order_data(True, True, result['results'])
-            plt.plot(xdata, cumulative_orders, linewidth=7,
-                     label='TD' + str(counter) if print_ready else result['header']['dataset'])
-            print('TD', result['header']['dataset'], ',', ','.join(map(str, cumulative_orders)))
+            plt.plot(xdata, cumulative_orders, linewidth=4,
+                     label='TS' + str(counter) if self.print_ready else result['header']['dataset'])
+            print('TS', result['header']['dataset'], ',', ','.join(map(str, cumulative_orders)))
         plt.legend(loc='lower right')
-        plt.title('Match Rate vs. Checking Depth')
-        plt.xlabel('% of checked tags')
+        plt.title('Match Rate vs. List Length')
+        plt.xlabel('% of list length')
         plt.ylabel('% of matched tags')
         plt.savefig('all.svg')
         plt.savefig('all.png')

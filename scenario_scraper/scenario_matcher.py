@@ -2,7 +2,7 @@ import scenario_extractor
 import semantic_similarity_nltk
 import visualize_match_results
 
-visualizer = visualize_match_results.MatchResultVisualizer()
+visualizer = visualize_match_results.MatchResultVisualizer(True)
 
 def match_scenarios_in_directory(directory):
     scenarios = scenario_extractor.get_scenarios_from_directory(directory)
@@ -18,10 +18,10 @@ def match_scenarios_in_directory(directory):
         corpus.append(scenario.step_groups['Then'].get_steps_as_text())
         scenarios_in_corpus.append(scenario)
         scenario_steps_in_corpus.append(scenario.step_groups['Then'])
-    # for scenario in scenarios:
-    #     corpus.append(scenario.step_groups['When'].get_steps_as_text())
-    #     scenarios_in_corpus.append(scenario)
-    #     scenario_steps_in_corpus.append(scenario.step_groups['When'])
+    for scenario in scenarios:
+        corpus.append(scenario.step_groups['When'].get_steps_as_text())
+        scenarios_in_corpus.append(scenario)
+        scenario_steps_in_corpus.append(scenario.step_groups['When'])
 
     freq_words = semantic_similarity_nltk.calculate_word_freq(corpus, 50)
     print(directory, freq_words)
@@ -48,6 +48,7 @@ def match_scenarios_in_directory(directory):
 if __name__ == '__main__':
     # match_scenarios_in_directory('test_scenarios/tag_testing')
     # match_scenarios_in_directory('test_scenarios/tuglular_v1')
+    # match_scenarios_in_directory('test_scenarios/tuglular_v2')
     match_scenarios_in_directory('test_scenarios/bank_atm/atm_uekici')
     match_scenarios_in_directory('test_scenarios/bank_atm/mkalacik_ctoklucu')
     match_scenarios_in_directory('test_scenarios/bank_atm/atm_agyalcin')
