@@ -9,6 +9,8 @@ gherkin-official = "*"
 nltk = "*"
 sklearn = "*"
 matplotlib = "*"
+networkx = "*"
+pandas = "*"
 
 [dev-packages]
 

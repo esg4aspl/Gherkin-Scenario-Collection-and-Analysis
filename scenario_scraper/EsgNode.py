@@ -1,5 +1,7 @@
 class EsgNode:
 
+    instance_counter = 0
+
     def __init__(self):
         self.label = ''
         self.isTag = False
@@ -7,6 +9,11 @@ class EsgNode:
         self.aggregatedGiven = ''
         self.aggregatedThen = ''
         self.is_to_be_removed = False
+        self.isIncomplete = False
+        self.isReachable = False
+        self.canReachToFinal = False
+        self.uid = EsgNode.instance_counter
+        EsgNode.instance_counter = EsgNode.instance_counter + 1
 
     def is_complete_tag(self):
         return len(self.aggregatedGiven) > 0 and len(self.aggregatedThen) > 0
@@ -28,3 +35,17 @@ class EsgNode:
             if descendent not in self.next:
                 self.next.append(descendent)
 
+    def get_label(self):
+        if not self.is_complete_tag():
+            return self.label
+        else:
+            return self.label + self.aggregatedThen + self.aggregatedGiven
+
+    def is_initial_node(self):
+        return self.isTag and self.label == '['
+
+    def is_final_node(self):
+        return self.isTag and self.label == ']'
+
+    def is_incomplete(self):
+        return (not self.isReachable) or (not self.canReachToFinal)
