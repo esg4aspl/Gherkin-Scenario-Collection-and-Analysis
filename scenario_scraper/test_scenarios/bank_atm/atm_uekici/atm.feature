@@ -2,6 +2,14 @@
 Feature: # Enter feature name here
   # Enter feature description here
 
+  Scenario: initial-node
+    Given #[
+    Then #initialState
+
+  Scenario: final-node
+    Given #welcome
+    Then #]
+
   Scenario: afr1_2
     # Enter steps here
     Given ATM is in initial state #initialState
